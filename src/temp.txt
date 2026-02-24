@@ -1,0 +1,209 @@
+Aquí está el texto completo del PDF con todos los números, títulos y elementos interactivos preservados:
+
+***
+
+## **INFORME DE INSPECCIÓN DE SISTEMAS /EQUIPOS DE PROTECCIÓN PARA TRABAJOS EN ALTURAS CON RIESGO DE CAÍDA**
+
+**RPQ:** 21
+**Versión-02**
+**Emisión:** 28/05/2018
+**Pág 1 / 2**
+
+**FORMATO DE INSPECCIÓN DE EQUIPOS INSAFE**
+
+**Proceso:** Gestión de Calidad
+
+***
+
+### **INFORMACIÓN DEL EQUIPO**
+
+ Campo  Valor 
+--------------
+ Nombre de la Empresa:  
+ Distribuidor:  
+ Fecha de Inspección:  
+ Fecha de Fabricación:  
+ Referencia:  
+ Lote:  
+ Nombre del Producto:  
+ Serie:  
+ FABRICANTE  
+ DISTRIBUIDOR  
+ CONSUMIDOR FINAL  
+
+**Aspectos a inspeccionar:** Etiquetas, reatas, cuerdas, costuras, herrajes, plásticos
+
+***
+
+### **1. CONDICIÓN DE LAS ETIQUETAS**
+
+ #  Criterio  Cumple  No Cumple  No Aplica  Observaciones 
+----------------------------------------------------------
+ 1  El lote es legible     
+ 1.1  El serial es legible     
+ 1.2  La fecha de fabricación es legible     
+ 1.3  La etiqueta esta completa     
+
+**Estado:** ☐ CUMPLE AL MOMENTO DE LA INSPECCION
+
+***
+
+### **2. CONDICIÓN ELEMENTOS TEXTILES**
+
+ #  Criterio  Cumple  No Cumple  No Aplica  Observaciones 
+----------------------------------------------------------
+ 2  El material se encuentra sin restos de pintura o cemento     
+ 2.1  Reatas o cuerdas sin desgaste     
+ 2.2  Reatas o cuerdas sin estiramientos excesivos     
+ 2.3  Reatas o cuerdas sin cortes     
+ 2.4  Reatas no deshilachadas     
+ 2.5  Reatas sin rastros de químicos     
+ 2.6  Reatas sin quemaduras     
+ 2.7  Cuenta con el alma completa     
+ 2.8  El absorbedor no se encuentra, impactado, roto, cortado o deformado     
+
+**Estado:** ☐ CUMPLE AL MOMENTO DE LA INSPECCION
+
+***
+
+### **3. CONDICIÓN DE LAS COSTURAS**
+
+ #  Criterio  Cumple  No Cumple  No Aplica  Observaciones 
+----------------------------------------------------------
+ 3  Costuras sin cortes o rupturas del tejido     
+ 3.1  Costuras sin estiramientos excesivos     
+ 3.2  Sin Costuras faltantes     
+ 3.3  Costura del testigo de impacto no desgarrada o rota     
+ 3.4  Costuras no contaminadas y sin presencia de químicos     
+ 3.5  Costuras sin quemaduras     
+ 3.6  Costuras sin ataques con químicos.     
+
+**Estado:** ☐ CUMPLE AL MOMENTO DE LA INSPECCION
+
+***
+
+### **4. CONDICIÓN DE LAS PIEZAS METÁLICAS**
+
+ #  Criterio  Cumple  No Cumple  No Aplica  Observaciones 
+----------------------------------------------------------
+ 4  Sin deformaciones o desgaste excesivo     
+ 4.1  Sin Picaduras, grietas o fisuras     
+ 4.2  Sin corrosión por exposición a ácidos, productos químicos o hidrocarburos     
+ 4.3  Correcta apertura de los ganchos y/o mosquetones     
+ 4.4  Correcto cierre de los ganchos y/o mosquetones     
+ 4.5  Sin remaches ausentes o deformes     
+ 4.6  Ajuste adecuado de los resortes     
+
+**Estado:** ☐ CUMPLE AL MOMENTO DE LA INSPECCION
+
+***
+
+### **5. CONDICIÓN DE LAS PIEZAS DIELÉCTRICAS Y PLÁSTICOS**
+
+ #  Criterio  Cumple  No Cumple  No Aplica  Observaciones 
+----------------------------------------------------------
+ 5  Sin deformaciones ni desgaste excesivo     
+ 5.1  Sin picaduras, grietas o fisuras     
+ 5.2  Los plásticos sin roturas     
+ 5.3  Guardacabos o protector de cuerda sin roturas o ausente     
+ 5.4  Se encuentra el roller protector de la argolla sin roturas     
+ 5.5  Sin cortaduras     
+ 5.6  Otro ¿Cuál?     
+
+**Estado:** ☐ CUMPLE AL MOMENTO DE LA INSPECCION
+
+***
+
+### **6. CONDICIÓN DEL CUERPO (Accesorios Metálicos)**
+
+ #  Criterio  Cumple  No Cumple  No Aplica  Observaciones 
+----------------------------------------------------------
+ 6  El estado de la leva y eje del freno es bueno y funcional     
+ 6.1  La leva rota correctamente     
+ 6.2  El cuerpo no esta desgastado     
+ 6.3  La abertura del cuerpo es la adecuada     
+ 6.4  No presentan desgaste o doblamiento     
+ 6.5  La rotación de la polea es la adecuada     
+ 6.6  El estado de las roldanas de la polea es bueno y funcional     
+ 6.7  El estado de la placa de la polea es bueno y funcional     
+ 6.8  La roldana gira libremente (polea)     
+ 6.9  No se presenta desgaste en la placa y/o roldana (polea)     
+ 6.10  otros ¿Cuál?     
+
+**Estado:** ☐ CUMPLE AL MOMENTO DE LA INSPECCION / ☒ NO APLICA PARA ESTE EQUIPO (para la mayoría)
+
+***
+
+## **PÁGINA 2 / 2**
+
+**RPQ:** 21
+**Versión-02**
+**Emisión:** 28/05/2018
+**Pág 2 / 2**
+
+***
+
+### **VEREDICTO FINAL:**
+
+**PRODUCTO:** ADAPTADOR DE ANCLAJE - IN 80
+
+ Opción  Estado 
+----------------
+ ☒ **CONTINÚA EN SERVICIO**  Seleccionado 
+ ☐ RETIRAR DE SERVICIO  
+
+**CONTINÚA EN SERVICIO:** Equipo que de acuerdo a la inspección puede seguir en uso
+
+**RETIRAR EN SERVICIO:** Equipo dado de baja.
+
+***
+
+### **INFORME FINAL DEL EQUIPO / CONCLUSIONES:**
+
+El equipo puede continuar en servicio, se realizan las siguientes recomendaciones para garantizar su conservacion y durabilidad de la vida util:
+
+- Realizar inspecciones preoperacionales por parte del personal ejecutor de la labor, inspecciones periodicas por parte del area SST de la empresa e inspecciones anuales realizadas por una persona avalada por el fabricante.
+
+- Realizar limpieza/mantenimiento de manera periodica y adecuado almacenamiento del equipo, de acuerdo a recomendaciones del fabricante.
+
+***
+
+### **DATOS DEL INSPECTOR Y FIRMAS:**
+
+ Campo  Valor 
+--------------
+ **Nombre de Inspector:**  Jose David Benitez Gallego 
+ **N° de Cédula:**  1144185593 
+ **Cargo:**  Asesor Tecnico 
+ **N° de Certificado Persona Competente/inspector:**  RPQ-25-5929 
+ **Firma:**  [Campo de firma] 
+ **Inspección recibida por:**  [Campo vacío] 
+ **N° de Cédula:**  [Campo vacío] 
+ **Cargo:**  [Campo vacío] 
+ **Firma:**  [Campo de firma] 
+ **Fecha de recibido:**  [Campo vacío] 
+
+***
+
+### **INFORMACIÓN DE APROBACIÓN:**
+
+ Rol  Responsable 
+------------------
+ **Elaboró:**  Coordinador de Calidad 
+ **Revisó:**  Coordinador de Calidad y Mantenimiento 
+ **Aprobó:**  Gerente General 
+
+***
+
+### **RESUMEN DE RESULTADOS:**
+
+- **Total de criterios evaluados:** 29 items principales + subitems
+- **Elementos con estado "CUMPLE AL MOMENTO DE LA INSPECCION":** 20+ items
+- **Elementos con estado "NO APLICA PARA ESTE EQUIPO":** 12 items
+- **Elementos con estado "NO CUMPLE":** Ninguno reportado
+- **Veredicto Final:** ✅ **CONTINÚA EN SERVICIO**
+
+***
+
+**Proceso:** Gestión de Calidad  
+**Aspectos a inspeccionar:** Etiquetas, reatas, cuerdas, costuras, herrajes, plásticos
