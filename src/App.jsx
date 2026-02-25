@@ -7,7 +7,9 @@ function App() {
     return (
         <>
             <Header />
-            <MainForm />
+            <article className="form-container">
+                <MainForm />
+            </article>
         </>
     );
 }

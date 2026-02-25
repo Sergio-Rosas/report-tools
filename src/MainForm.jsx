@@ -3,7 +3,7 @@ import data from "./data";
 
 export default function MainForm() {
     return (
-        <form>
+        <form className="form">
             <input
                 type="radio"
                 value="fabricante"
