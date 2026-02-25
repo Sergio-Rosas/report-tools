@@ -1,4 +1,5 @@
 import Table from "./Table";
+import data from "./data";
 
 export default function MainForm() {
     return (
@@ -10,7 +11,6 @@ export default function MainForm() {
                 name="usuario"
             />
             <label htmlFor="fabricante">Fabricante</label>
-
             <input
                 type="radio"
                 value="distribuidor"
@@ -18,7 +18,6 @@ export default function MainForm() {
                 name="usuario"
             />
             <label htmlFor="distribuidor">Distribuidor</label>
-
             <input
                 type="radio"
                 value="consumidor"
@@ -26,7 +25,6 @@ export default function MainForm() {
                 name="usuario"
             />
             <label htmlFor="consumidor">Consumidor</label>
-
             <div className="important">
                 <label htmlFor="empresa">Nombre de la Empresa</label>
                 <input type="text" name="empresa" id="empresa" />
@@ -62,22 +60,43 @@ export default function MainForm() {
                 <label htmlFor="serie">Serie</label>
                 <input type="text" name="serie" id="serie" />
             </div>
-
             <h3>FORMATO DE INSPECCIÓN DE EQUIPOS</h3>
             <p>
                 Aspectos a inspeccionar: etiquetas, reatas, cuerdas, costuras,
                 herrajes, plásticos
             </p>
+            {data.map((obj, index) => (
+                <Table
+                    titulo={`${obj.title}`}
+                    condiciones={obj.elems}
+                    index={index + 1}
+                    key={obj.title}
+                />
+            ))}
+            <p>
+                <span>Continúa en servicio:</span> Equipo que de acuerdo a la
+                inspección puede seguir en uso.
+            </p>
+            <p>
+                <span>Retirar en servicio:</span> Equipo dado de baja.
+            </p>
 
-            <Table
-                titulo="1. Condición de las etiquetas"
-                condiciones={[
-                    "1.1 El lote es legible",
-                    "1.2 El serial es legible",
-                    "1.3 La fecha de fabricación es legible",
-                    "1.4 La etiqueta esta completa",
-                ]}
+            <p>Veredicto:</p>
+            <input
+                type="radio"
+                value="continua"
+                id="continua"
+                name="servicio"
             />
+            <label htmlFor="continua">Continúa en servicio</label>
+
+            <input type="radio" value="retirar" id="retirar" name="servicio" />
+            <label htmlFor="retirar">Retirar de servicio</label>
+
+            <label htmlFor="informe">
+                Informe final del equipo/conclusiones:
+            </label>
+            <textarea name="informe" id="informe"></textarea>
         </form>
     );
 }

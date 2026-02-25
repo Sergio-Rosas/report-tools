@@ -1,10 +1,15 @@
 // npm run dev
+// TODO Create header with the title of the document.
+import Header from "./Header";
 import MainForm from "./MainForm";
-import data from "./data";
 
 function App() {
-    data();
-    return <MainForm />;
+    return (
+        <>
+            <Header />
+            <MainForm />
+        </>
+    );
 }
 
 export default App;
