@@ -65,14 +65,16 @@ export default function MainForm() {
                 Aspectos a inspeccionar: etiquetas, reatas, cuerdas, costuras,
                 herrajes, plásticos
             </p>
-            {data.map((obj, index) => (
-                <Table
-                    titulo={`${obj.title}`}
-                    condiciones={obj.elems}
-                    index={index + 1}
-                    key={obj.title}
-                />
-            ))}
+            <div className="table-container">
+                {data.map((obj, index) => (
+                    <Table
+                        titulo={`${obj.title}`}
+                        condiciones={obj.elems}
+                        index={index + 1}
+                        key={obj.title}
+                    />
+                ))}
+            </div>
             <p>
                 <span>Continúa en servicio:</span> Equipo que de acuerdo a la
                 inspección puede seguir en uso.

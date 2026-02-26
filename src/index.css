@@ -6,11 +6,13 @@
 
 :root {
     --primary-color: #ef4722;
+    --contrast-color: #225cf0;
 }
 
 body {
     font-family: "Noto Sans", sans-serif;
     font-size: 14px;
+    background-color: #f4fde7;
 }
 
 .form-container {
@@ -38,7 +40,7 @@ header {
 .form {
     display: flex;
     flex-direction: column;
-    max-inline-size: 1200px;
+    inline-size: 1100px;
     border: 2px solid orange;
     padding: 20px;
 }
@@ -48,7 +50,52 @@ header {
     grid-template-columns: repeat(4, 1fr);
 }
 
+.table-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+fieldset {
+    border: 2px solid var(--primary-color);
+    padding: 5px 10px 15px 10px;
+}
+
+legend {
+    font-weight: 700;
+    padding-inline: 3px;
+}
+
 .table {
     display: grid;
-    grid-template-columns: 500px 100px 100px 100px 500px;
+    max-inline-size: 1000px;
+    grid-template-columns: 450px repeat(3, 90px) 1fr;
+}
+
+.table > * {
+    /*outline: 1px solid blue;*/
+    padding: 1px;
+}
+
+.table__title {
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.table__title--center {
+    text-align: center;
+}
+
+.table__radio {
+    border-radius: 0;
+    accent-color: var(--contrast-color);
+    /*appearance: none;*/
+    inline-size: 20px;
+    aspect-ratio: 1;
+    justify-self: center;
+    align-self: center;
+}
+
+.table__row--background {
+    background-color: #e8d3ce;
 }

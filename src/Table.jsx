@@ -4,23 +4,38 @@ export default function Table({ titulo, condiciones, index }) {
             <legend>{`${index} ${titulo}`}</legend>
             <div className="table">
                 <p></p>
-                <label htmlFor="">Cumple</label>
-                <label htmlFor="">No Cumple</label>
-                <label htmlFor="">No Aplica</label>
-                <label htmlFor="">Observaciones</label>
+                <label htmlFor="" className="table__title table__title--center">
+                    Cumple
+                </label>
+                <label htmlFor="" className="table__title table__title--center">
+                    No Cumple
+                </label>
+                <label htmlFor="" className="table__title table__title--center">
+                    No Aplica
+                </label>
+                <label htmlFor="" className="table__title">
+                    Observaciones
+                </label>
 
                 {condiciones.map((condicion, i) => {
                     return (
                         <>
-                            <label>{`${index}.${i + 1} ${condicion.name}`}</label>
+                            <label
+                                className={`${i % 2 !== 1 ? "table__row--background" : ""}`}
+                            >{`${index}.${i + 1} ${condicion.name}`}</label>
+                            <div
+                                className={`table__radio ${i % 2 !== 1 ? "table__row--background" : ""}`}
+                            >
+                                <input
+                                    type="radio"
+                                    value="cumple"
+                                    id=""
+                                    name={`condicion ${condicion.name}`}
+                                    checked={condicion.status === "cumple"}
+                                />
+                            </div>
                             <input
-                                type="radio"
-                                value="cumple"
-                                id=""
-                                name={`condicion ${condicion.name}`}
-                                checked={condicion.status === "cumple"}
-                            />
-                            <input
+                                className={`table__radio ${i % 2 !== 1 ? "table__row--background" : ""}`}
                                 type="radio"
                                 value="no-cumple"
                                 id=""
@@ -28,6 +43,7 @@ export default function Table({ titulo, condiciones, index }) {
                                 checked={condicion.status === "no cumple"}
                             />
                             <input
+                                className={`table__radio ${i % 2 !== 1 ? "table__row--background" : ""}`}
                                 type="radio"
                                 value="no-aplica"
                                 id=""
@@ -36,6 +52,7 @@ export default function Table({ titulo, condiciones, index }) {
                             />
                             <input
                                 type="text"
+                                className={`${i % 2 !== 1 ? "table__row--background" : ""}`}
                                 value={
                                     condicion.status === "cumple"
                                         ? "Cumple al momento de la inspección"
