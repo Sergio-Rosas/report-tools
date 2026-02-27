@@ -1,4 +1,8 @@
 export default function Table({ titulo, condiciones, index }) {
+    function handleFocus(e) {
+        e.target.select();
+    }
+
     return (
         <fieldset>
             <legend>{`${index} ${titulo}`}</legend>
@@ -21,39 +25,55 @@ export default function Table({ titulo, condiciones, index }) {
                     return (
                         <>
                             <label
-                                className={`${i % 2 !== 1 ? "table__row--background" : ""}`}
+                                className={`${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
                             >{`${index}.${i + 1} ${condicion.name}`}</label>
                             <div
-                                className={`table__radio ${i % 2 !== 1 ? "table__row--background" : ""}`}
+                                className={`radio-container ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
                             >
                                 <input
+                                    className="table__radio table__radio--positive"
                                     type="radio"
                                     value="cumple"
                                     id=""
                                     name={`condicion ${condicion.name}`}
-                                    checked={condicion.status === "cumple"}
+                                    defaultChecked={
+                                        condicion.status === "cumple"
+                                    }
+                                />
+                            </div>
+                            <div
+                                className={`radio-container ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
+                            >
+                                <input
+                                    className="table__radio table__radio--negative"
+                                    type="radio"
+                                    value="no cumple"
+                                    id=""
+                                    name={`condicion ${condicion.name}`}
+                                    defaultChecked={
+                                        condicion.status === "no cumple"
+                                    }
+                                />
+                            </div>
+                            <div
+                                className={`radio-container ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
+                            >
+                                <input
+                                    className="table__radio table__radio--negative"
+                                    type="radio"
+                                    value="no aplica"
+                                    id=""
+                                    name={`condicion ${condicion.name}`}
+                                    defaultChecked={
+                                        condicion.status === "no aplica"
+                                    }
                                 />
                             </div>
                             <input
-                                className={`table__radio ${i % 2 !== 1 ? "table__row--background" : ""}`}
-                                type="radio"
-                                value="no-cumple"
-                                id=""
-                                name={`condicion ${condicion.name}`}
-                                checked={condicion.status === "no cumple"}
-                            />
-                            <input
-                                className={`table__radio ${i % 2 !== 1 ? "table__row--background" : ""}`}
-                                type="radio"
-                                value="no-aplica"
-                                id=""
-                                name={`condicion ${condicion.name}`}
-                                checked={condicion.status === "no aplica"}
-                            />
-                            <input
                                 type="text"
-                                className={`${i % 2 !== 1 ? "table__row--background" : ""}`}
-                                value={
+                                className={`table__text ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
+                                onFocus={handleFocus}
+                                defaultValue={
                                     condicion.status === "cumple"
                                         ? "Cumple al momento de la inspección"
                                         : condicion.status === "no aplica"

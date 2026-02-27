@@ -7,12 +7,13 @@
 :root {
     --primary-color: #ef4722;
     --contrast-color: #225cf0;
+    --page-background: #f4fde7;
 }
 
 body {
     font-family: "Noto Sans", sans-serif;
     font-size: 14px;
-    background-color: #f4fde7;
+    background-color: var(--page-background);
 }
 
 .form-container {
@@ -68,8 +69,8 @@ legend {
 
 .table {
     display: grid;
-    max-inline-size: 1000px;
-    grid-template-columns: 450px repeat(3, 90px) 1fr;
+    max-inline-size: 1100px;
+    grid-template-columns: 450px repeat(3, 70px) 1fr;
 }
 
 .table > * {
@@ -86,16 +87,65 @@ legend {
     text-align: center;
 }
 
-.table__radio {
-    border-radius: 0;
-    accent-color: var(--contrast-color);
-    /*appearance: none;*/
-    inline-size: 20px;
-    aspect-ratio: 1;
-    justify-self: center;
-    align-self: center;
+.radio-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.table__row--background {
+.table__radio {
+    appearance: none;
+    inline-size: 20px;
+    aspect-ratio: 1;
+    border: 2px solid var(--contrast-color);
+    display: grid;
+    place-content: center;
+    position: relative;
+}
+
+.table__radio--positive:before {
+    content: "✓";
+    inset-block-start: -10px;
+    inset-inline-start: 3px;
+    font-size: 1.5rem;
+}
+
+.table__radio--negative:before {
+    content: "✗";
+    inset-block-start: -6px;
+    inset-inline-start: 1px;
+    font-size: 1.6rem;
+}
+
+:is(.table__radio--positive, .table__radio--negative)::before {
+    inline-size: 9px;
+    aspect-ratio: 1;
+    transform: scale(0);
+    color: var(--contrast-color);
+    position: absolute;
+}
+
+:is(.table__radio--positive, .table__radio--negative):checked::before {
+    transform: scale(1);
+}
+
+.table__row--even-background {
     background-color: #e8d3ce;
+}
+
+.table__row--odd-background {
+    background-color: var(--page-background);
+}
+
+.table__text {
+    border: none;
+    appearance: none;
+    padding-inline-start: 4px;
+    text-transform: uppercase;
+}
+
+.table__text:focus {
+    outline: 2px groove gray;
+    outline-offset: -2px;
+    opacity: 0.7;
 }
