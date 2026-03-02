@@ -13,28 +13,40 @@ export default function MainForm() {
 
     return (
         <form className="form" action={save}>
-            <input
-                type="radio"
-                value="fabricante"
-                id="fabricante"
-                name="usuario"
-                defaultChecked="true"
-            />
-            <label htmlFor="fabricante">Fabricante</label>
-            <input
-                type="radio"
-                value="distribuidor"
-                id="distribuidor"
-                name="usuario"
-            />
-            <label htmlFor="distribuidor">Distribuidor</label>
-            <input
-                type="radio"
-                value="consumidor"
-                id="consumidor"
-                name="usuario"
-            />
-            <label htmlFor="consumidor">Consumidor</label>
+            <div className="user">
+                <div className="radio-square--container">
+                    <input
+                        className="radio-square"
+                        type="radio"
+                        value="fabricante"
+                        id="fabricante"
+                        name="usuario"
+                        defaultChecked="true"
+                    />
+                    <label htmlFor="fabricante">Fabricante</label>
+                </div>
+                <div className="radio-square--container">
+                    <input
+                        className="radio-square"
+                        type="radio"
+                        value="distribuidor"
+                        id="distribuidor"
+                        name="usuario"
+                    />
+                    <label htmlFor="distribuidor">Distribuidor</label>
+                </div>
+                <div className="radio-square--container">
+                    <input
+                        className="radio-square"
+                        type="radio"
+                        value="consumidor"
+                        id="consumidor"
+                        name="usuario"
+                    />
+                    <label htmlFor="consumidor">Consumidor</label>
+                </div>
+            </div>
+
             <div className="important">
                 <label htmlFor="empresa">Nombre de la Empresa</label>
                 <input

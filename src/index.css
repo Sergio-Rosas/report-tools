@@ -44,11 +44,21 @@ header {
     inline-size: 1100px;
     border: 2px solid orange;
     padding: 20px;
+    row-gap: 10px;
+}
+
+.user {
+    display: flex;
+    justify-content: space-around;
+    border-block: 1px solid var(--primary-color);
+    padding-block: 4px;
 }
 
 .important {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr 30% 1fr 30%;
+    column-gap: 20px;
+    row-gap: 3px;
 }
 
 .table-container {
@@ -87,6 +97,41 @@ legend {
     text-align: center;
 }
 
+.radio-square--container {
+    display: flex;
+    align-items: center;
+    column-gap: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.radio-square {
+    appearance: none;
+    inline-size: 15px;
+    aspect-ratio: 1;
+    border: 2px solid var(--contrast-color);
+    display: inline-grid;
+    place-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-square:before {
+    content: "✓";
+    inset-block-start: -13px;
+    inset-inline-start: 1px;
+    font-size: 1.4rem;
+    inline-size: 9px;
+    aspect-ratio: 1;
+    transform: scale(0);
+    color: var(--contrast-color);
+    position: absolute;
+}
+
+.radio-square:checked:before {
+    transform: scale(1);
+}
+
 .radio-container {
     display: flex;
     justify-content: center;
@@ -101,6 +146,7 @@ legend {
     display: grid;
     place-content: center;
     position: relative;
+    cursor: pointer;
 }
 
 .table__radio--positive:before {
