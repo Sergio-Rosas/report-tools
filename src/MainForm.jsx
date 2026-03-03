@@ -1,7 +1,18 @@
+import { useEffect } from "react";
+
+import { pdfUpdate } from "./pdfUpdate";
+
 import Table from "./Table";
 import data from "./data";
 
 export default function MainForm() {
+    useEffect(() => {
+        async function update() {
+            await pdfUpdate();
+        }
+        update();
+    }, []);
+
     function save(formData) {
         console.log(formData.get("condicion Cuenta con el alma completa"));
         console.log(Object.fromEntries(formData));
@@ -22,6 +33,7 @@ export default function MainForm() {
                         id="fabricante"
                         name="usuario"
                         defaultChecked="true"
+                        required
                     />
                     <label htmlFor="fabricante">Fabricante</label>
                 </div>
@@ -32,6 +44,7 @@ export default function MainForm() {
                         value="distribuidor"
                         id="distribuidor"
                         name="usuario"
+                        required
                     />
                     <label htmlFor="distribuidor">Distribuidor</label>
                 </div>
@@ -42,6 +55,7 @@ export default function MainForm() {
                         value="consumidor"
                         id="consumidor"
                         name="usuario"
+                        required
                     />
                     <label htmlFor="consumidor">Consumidor</label>
                 </div>
@@ -55,6 +69,7 @@ export default function MainForm() {
                     id="empresa"
                     defaultValue="Empresa Temporal"
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="fecha-fabricacion">Fecha de Fabricación:</label>
@@ -65,6 +80,7 @@ export default function MainForm() {
                     min="2016-01-01"
                     defaultValue="2020-11-02"
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="distribuidor">Distribuidor:</label>
@@ -74,6 +90,7 @@ export default function MainForm() {
                     id="distribuidor"
                     defaultValue="Distribuciones"
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="referencia">Referencia:</label>
@@ -83,6 +100,7 @@ export default function MainForm() {
                     id="referencia"
                     defaultValue="AXW-Z098S"
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="fecha-inspeccion">Fecha de Inspección:</label>
@@ -93,6 +111,7 @@ export default function MainForm() {
                     min="2026-01-01"
                     defaultValue={new Date().toISOString().split("T")[0]}
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="lote">Lote:</label>
@@ -102,6 +121,7 @@ export default function MainForm() {
                     id="lote"
                     defaultValue="200T89756"
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="producto">Nombre del Producto:</label>
@@ -111,6 +131,7 @@ export default function MainForm() {
                     id="producto"
                     defaultValue="Eslinga"
                     onFocus={handleFocus}
+                    required
                 />
 
                 <label htmlFor="serie">Serie:</label>
@@ -120,6 +141,7 @@ export default function MainForm() {
                     id="serie"
                     defaultValue="7898852"
                     onFocus={handleFocus}
+                    required
                 />
             </div>
             <div className="flex-container">
@@ -160,6 +182,7 @@ export default function MainForm() {
                         id="continua"
                         name="servicio"
                         defaultChecked="true"
+                        required
                     />
                     <label htmlFor="continua">Continúa en servicio</label>
                 </div>
@@ -170,6 +193,7 @@ export default function MainForm() {
                         value="retirar"
                         id="retirar"
                         name="servicio"
+                        required
                     />
                     <label htmlFor="retirar">Retirar de servicio</label>
                 </div>
@@ -178,7 +202,7 @@ export default function MainForm() {
             <label className="subtitle" htmlFor="informe">
                 Informe final del equipo/conclusiones:
             </label>
-            <textarea name="informe" id="informe"></textarea>
+            <textarea name="informe" id="informe" required></textarea>
             <div className="buttons">
                 <button>Guardar</button>
             </div>

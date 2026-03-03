@@ -39,6 +39,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     defaultChecked={
                                         condicion.status === "cumple"
                                     }
+                                    required
                                 />
                             </div>
                             <div
@@ -53,6 +54,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     defaultChecked={
                                         condicion.status === "no cumple"
                                     }
+                                    required
                                 />
                             </div>
                             <div
@@ -67,12 +69,14 @@ export default function Table({ titulo, condiciones, index }) {
                                     defaultChecked={
                                         condicion.status === "no aplica"
                                     }
+                                    required
                                 />
                             </div>
                             <input
                                 type="text"
                                 className={`table__text ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
                                 onFocus={handleFocus}
+                                required
                                 defaultValue={
                                     condicion.status === "cumple"
                                         ? "Cumple al momento de la inspección"
