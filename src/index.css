@@ -6,6 +6,7 @@
 
 :root {
     --primary-color: #ef4722;
+    --primary-color--light: hsl(11, 86%, 54%);
     --contrast-color: #225cf0;
     --page-background: #f4fde7;
 }
@@ -23,9 +24,19 @@ body {
 }
 
 textarea,
-input[type="text"] {
+input[type="text"],
+input[type="date"] {
     font-family: "Noto Sans", sans-serif;
+    padding-inline: 5px;
 }
+
+/*
+textarea,
+input[type="text"]:not(.table__text),
+input[type="date"] {
+    border: 1px solid var(--primary-color);
+}
+    */
 
 .title {
     text-align: center;
@@ -222,7 +233,6 @@ legend {
 
 textarea {
     block-size: 120px;
-    padding-inline: 5px;
     resize: none;
 }
 
@@ -237,9 +247,18 @@ button {
     color: white;
     font-size: 1.1rem;
     cursor: pointer;
+    transition: filter 150ms ease-in;
 }
 
 .buttons {
     display: flex;
     justify-content: flex-end;
+}
+
+button:hover {
+    filter: brightness(0.9);
+}
+
+button:active {
+    filter: brightness(1.2);
 }
