@@ -22,6 +22,11 @@ body {
     align-items: center;
 }
 
+textarea,
+input[type="text"] {
+    font-family: "Noto Sans", sans-serif;
+}
+
 .title {
     text-align: center;
     inline-size: 800px;
@@ -42,7 +47,6 @@ header {
     display: flex;
     flex-direction: column;
     inline-size: 1100px;
-    border: 2px solid orange;
     padding: 20px;
     row-gap: 10px;
 }
@@ -59,6 +63,14 @@ header {
     grid-template-columns: 1fr 30% 1fr 30%;
     column-gap: 20px;
     row-gap: 3px;
+    border-block-end: 1px solid var(--primary-color);
+    padding-block-end: 10px;
+}
+
+.flex-container {
+    display: flex;
+    column-gap: 7px;
+    align-items: baseline;
 }
 
 .table-container {
@@ -194,4 +206,40 @@ legend {
     outline: 2px groove gray;
     outline-offset: -2px;
     opacity: 0.7;
+}
+
+.subtitle {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.veredict {
+    display: flex;
+    column-gap: 150px;
+    border-block: 1px solid var(--primary-color);
+    padding-block: 4px;
+}
+
+textarea {
+    block-size: 120px;
+    padding-inline: 5px;
+    resize: none;
+}
+
+button {
+    text-transform: uppercase;
+    font-family: "Noto Sans", sans-serif;
+    inline-size: fit-content;
+    padding: 10px 15px;
+    font-weight: 700;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
 }

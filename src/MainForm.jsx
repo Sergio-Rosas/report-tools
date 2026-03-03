@@ -48,7 +48,7 @@ export default function MainForm() {
             </div>
 
             <div className="important">
-                <label htmlFor="empresa">Nombre de la Empresa</label>
+                <label htmlFor="empresa">Nombre de la Empresa:</label>
                 <input
                     type="text"
                     name="empresa"
@@ -57,7 +57,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="fecha-fabricacion">Fecha de Fabricación</label>
+                <label htmlFor="fecha-fabricacion">Fecha de Fabricación:</label>
                 <input
                     type="date"
                     name="fecha-fabricacion"
@@ -67,7 +67,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="distribuidor">Distribuidor</label>
+                <label htmlFor="distribuidor">Distribuidor:</label>
                 <input
                     type="text"
                     name="distribuidor"
@@ -76,7 +76,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="referencia">Referencia</label>
+                <label htmlFor="referencia">Referencia:</label>
                 <input
                     type="text"
                     name="referencia"
@@ -85,7 +85,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="fecha-inspeccion">Fecha de Inspección</label>
+                <label htmlFor="fecha-inspeccion">Fecha de Inspección:</label>
                 <input
                     type="date"
                     name="fecha-inspeccion"
@@ -95,7 +95,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="lote">Lote</label>
+                <label htmlFor="lote">Lote:</label>
                 <input
                     type="text"
                     name="lote"
@@ -104,7 +104,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="producto">Nombre del Producto</label>
+                <label htmlFor="producto">Nombre del Producto:</label>
                 <input
                     type="text"
                     name="producto"
@@ -113,7 +113,7 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
 
-                <label htmlFor="serie">Serie</label>
+                <label htmlFor="serie">Serie:</label>
                 <input
                     type="text"
                     name="serie"
@@ -122,11 +122,13 @@ export default function MainForm() {
                     onFocus={handleFocus}
                 />
             </div>
-            <h3>FORMATO DE INSPECCIÓN DE EQUIPOS</h3>
-            <p>
-                Aspectos a inspeccionar: etiquetas, reatas, cuerdas, costuras,
-                herrajes, plásticos
-            </p>
+            <div className="flex-container">
+                <h3>FORMATO DE INSPECCIÓN DE EQUIPOS</h3>
+                <p>
+                    Aspectos a inspeccionar: etiquetas, reatas, cuerdas,
+                    costuras, herrajes, plásticos
+                </p>
+            </div>
             <div className="table-container">
                 {data.map((obj, index) => (
                     <Table
@@ -137,32 +139,49 @@ export default function MainForm() {
                     />
                 ))}
             </div>
-            <p>
-                <span>Continúa en servicio:</span> Equipo que de acuerdo a la
-                inspección puede seguir en uso.
-            </p>
-            <p>
-                <span>Retirar en servicio:</span> Equipo dado de baja.
-            </p>
+            <div>
+                <p>
+                    <span className="subtitle">Continúa en servicio:</span>{" "}
+                    Equipo que de acuerdo a la inspección puede seguir en uso.
+                </p>
+                <p>
+                    <span className="subtitle">Retirar en servicio:</span>{" "}
+                    Equipo dado de baja.
+                </p>
+            </div>
 
-            <p>Veredicto:</p>
-            <input
-                type="radio"
-                value="continua"
-                id="continua"
-                name="servicio"
-                defaultChecked="true"
-            />
-            <label htmlFor="continua">Continúa en servicio</label>
+            <div className="veredict">
+                <p className="subtitle">Veredicto:</p>
+                <div className="radio-square--container">
+                    <input
+                        className="radio-square"
+                        type="radio"
+                        value="continua"
+                        id="continua"
+                        name="servicio"
+                        defaultChecked="true"
+                    />
+                    <label htmlFor="continua">Continúa en servicio</label>
+                </div>
+                <div className="radio-square--container">
+                    <input
+                        className="radio-square"
+                        type="radio"
+                        value="retirar"
+                        id="retirar"
+                        name="servicio"
+                    />
+                    <label htmlFor="retirar">Retirar de servicio</label>
+                </div>
+            </div>
 
-            <input type="radio" value="retirar" id="retirar" name="servicio" />
-            <label htmlFor="retirar">Retirar de servicio</label>
-
-            <label htmlFor="informe">
+            <label className="subtitle" htmlFor="informe">
                 Informe final del equipo/conclusiones:
             </label>
             <textarea name="informe" id="informe"></textarea>
-            <button>Guardar</button>
+            <div className="buttons">
+                <button>Guardar</button>
+            </div>
         </form>
     );
 }
