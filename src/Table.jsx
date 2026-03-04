@@ -35,7 +35,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     type="radio"
                                     value="cumple"
                                     id=""
-                                    name={`condicion ${condicion.name}`}
+                                    name={`${index}.${i + 1}`}
                                     defaultChecked={
                                         condicion.status === "cumple"
                                     }
@@ -50,7 +50,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     type="radio"
                                     value="no cumple"
                                     id=""
-                                    name={`condicion ${condicion.name}`}
+                                    name={`${index}.${i + 1}`}
                                     defaultChecked={
                                         condicion.status === "no cumple"
                                     }
@@ -65,7 +65,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     type="radio"
                                     value="no aplica"
                                     id=""
-                                    name={`condicion ${condicion.name}`}
+                                    name={`${index}.${i + 1}`}
                                     defaultChecked={
                                         condicion.status === "no aplica"
                                     }
@@ -76,6 +76,7 @@ export default function Table({ titulo, condiciones, index }) {
                                 type="text"
                                 className={`table__text ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
                                 onFocus={handleFocus}
+                                name={`observaciones ${index}.${i + 1}`}
                                 required
                                 defaultValue={
                                     condicion.status === "cumple"

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { pdfUpdate } from "./pdfUpdate";
 
@@ -6,16 +6,16 @@ import Table from "./Table";
 import data from "./data";
 
 export default function MainForm() {
+    const [formFilled, setFormFilled] = useState([]);
     useEffect(() => {
         async function update() {
             await pdfUpdate();
         }
         update();
-    }, []);
+    }, [formFilled]);
 
     function save(formData) {
-        console.log(formData.get("condicion Cuenta con el alma completa"));
-        console.log(Object.fromEntries(formData));
+        setFormFilled(Object.fromEntries(formData));
     }
 
     function handleFocus(e) {
