@@ -1,6 +1,35 @@
 import { PDFDocument } from "pdf-lib";
 
+function pdfDownloader(pdf, filename) {
+    const blob = new Blob([pdf], {
+        type: "application/pdf",
+        endings: "transparent",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
 async function pdfUpdate(form) {
+    const monthConverter = {
+        0: "ENERO",
+        1: "FEBRERO",
+        2: "MARZO",
+        3: "ABRIL",
+        4: "MAYO",
+        5: "JUNIO",
+        6: "JULIO",
+        7: "AGOSTO",
+        8: "SEPTIEMBRE",
+        9: "OCTUBRE",
+        10: "NOVIEMBRE",
+        11: "DICIEMBRE",
+    };
     const conditionsNumber = [4, 9, 7, 7, 7, 11];
     const fieldNames = [
         [
@@ -61,16 +90,10 @@ async function pdfUpdate(form) {
             [149, 159, 169, 183],
         ],
     ];
-    const pdfUrl = await fetch("./public/template.pdf");
+    const pdfUrl = await fetch("/template.pdf");
     const pdfBytes = await pdfUrl.arrayBuffer();
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const pdfForm = pdfDoc.getForm();
-
-    pdfForm.getFields().forEach((field, i) => {
-        const type = field.constructor.name;
-        const name = field.getName();
-        console.log(`${i + 1}. [${type}] ${name}`);
-    });
 
     // Filling field by field.
     switch (form.usuario) {
@@ -84,14 +107,26 @@ async function pdfUpdate(form) {
             pdfForm.getCheckBox("untitled202").check();
             break;
     }
-    pdfForm.getTextField("untitled192").setText(form.empresa);
-    pdfForm.getTextField("untitled196").setText(form.fechaFabricacion);
-    pdfForm.getTextField("untitled193").setText(form.distribuidor);
-    pdfForm.getTextField("untitled197").setText(form.referencia);
-    pdfForm.getTextField("untitled194").setText(form.fechaInspeccion);
-    pdfForm.getTextField("untitled198").setText(form.lote);
-    pdfForm.getTextField("untitled195").setText(form.producto);
-    pdfForm.getTextField("untitled199").setText(form.serie);
+    pdfForm.getTextField("untitled192").setText(form.empresa.toUpperCase());
+    const fabricationDate = new Date(form["fecha-fabricacion"]);
+    pdfForm
+        .getTextField("untitled196")
+        .setText(
+            `${fabricationDate.getDate()} DE ${monthConverter[fabricationDate.getMonth()]} DE ${fabricationDate.getFullYear()}`,
+        );
+    pdfForm
+        .getTextField("untitled193")
+        .setText(form.distribuidor.toUpperCase());
+    pdfForm.getTextField("untitled197").setText(form.referencia.toUpperCase());
+    const inspectionDate = new Date(form["fecha-inspeccion"]);
+    pdfForm
+        .getTextField("untitled194")
+        .setText(
+            `${inspectionDate.getDate()} DE ${monthConverter[inspectionDate.getMonth()]} DE ${inspectionDate.getFullYear()}`,
+        );
+    pdfForm.getTextField("untitled198").setText(form.lote.toUpperCase());
+    pdfForm.getTextField("untitled195").setText(form.producto.toUpperCase());
+    pdfForm.getTextField("untitled199").setText(form.serie.toUpperCase());
     for (let i = 0; i < conditionsNumber.length; i++) {
         for (let j = 1; j <= conditionsNumber[i]; j++) {
             switch (form[`${i + 1}.${j}`]) {
@@ -113,17 +148,28 @@ async function pdfUpdate(form) {
             }
             pdfForm
                 .getTextField(`untitled${fieldNames[i][j - 1][3]}`)
-                .setText(form[`observaciones ${form[`${i + 1}.${j}`]}`]);
+                .setText(form[`observaciones ${i + 1}.${j}`].toUpperCase());
         }
     }
-    if (form.servicio === "continue") {
+    if (form.servicio === "continua") {
         pdfForm.getCheckBox("untitled170").check();
     } else {
         pdfForm.getCheckBox("untitled171").check();
     }
     pdfForm.getTextField("untitled185").setText(form.informe);
 
-    const pdfCompleted = await pdfForm.save();
+    //pdfForm.flatten();
+
+    const modifiedDoc = await pdfDoc.save({
+        addDefaultPage: false,
+        objectsPerTick: 100,
+        //updateFieldAppearances: false,
+    });
+
+    pdfDownloader(
+        modifiedDoc,
+        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[inspectionDate.getMonth()]).slice(0, 3)}${String(inspectionDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
+    );
 }
 
 export { pdfUpdate };

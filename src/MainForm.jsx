@@ -7,9 +7,10 @@ import data from "./data";
 
 export default function MainForm() {
     const [formFilled, setFormFilled] = useState([]);
+
     useEffect(() => {
         async function update() {
-            await pdfUpdate();
+            await pdfUpdate(formFilled);
         }
         update();
     }, [formFilled]);
@@ -98,7 +99,7 @@ export default function MainForm() {
                     type="text"
                     name="referencia"
                     id="referencia"
-                    defaultValue="AXW-Z098S"
+                    defaultValue="AXWZ098S"
                     onFocus={handleFocus}
                     required
                 />
