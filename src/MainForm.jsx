@@ -3,9 +3,13 @@ import { useState, useEffect } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
-import data from "./data";
+import dataArr from "./data";
 
 export default function MainForm() {
+    const data = dataArr[0].conditions;
+    const name = dataArr[0].name;
+    const reference = dataArr[0].reference;
+    const conclusions = dataArr[0].conclusions;
     const [formFilled, setFormFilled] = useState([]);
 
     useEffect(() => {
@@ -68,10 +72,10 @@ export default function MainForm() {
                     type="text"
                     name="empresa"
                     id="empresa"
-                    defaultValue="Empresa Temporal"
                     onFocus={handleFocus}
                     required
                 />
+                {/*defaultValue="Empresa Temporal"*/}
 
                 <label htmlFor="fecha-fabricacion">Fecha de Fabricación:</label>
                 <input
@@ -79,27 +83,27 @@ export default function MainForm() {
                     name="fecha-fabricacion"
                     id="fecha-fabricacion"
                     min="2016-01-01"
-                    defaultValue="2020-11-02"
                     onFocus={handleFocus}
                     required
                 />
+                {/*defaultValue="2020-11-02"*/}
 
                 <label htmlFor="distribuidor">Distribuidor:</label>
                 <input
                     type="text"
                     name="distribuidor"
                     id="distribuidor"
-                    defaultValue="Distribuciones"
                     onFocus={handleFocus}
                     required
                 />
+                {/*defaultValue="Distribuciones"*/}
 
                 <label htmlFor="referencia">Referencia:</label>
                 <input
                     type="text"
                     name="referencia"
                     id="referencia"
-                    defaultValue="AXWZ098S"
+                    defaultValue={reference}
                     onFocus={handleFocus}
                     required
                 />
@@ -110,27 +114,27 @@ export default function MainForm() {
                     name="fecha-inspeccion"
                     id="fecha-inspeccion"
                     min="2026-01-01"
-                    defaultValue={new Date().toISOString().split("T")[0]}
                     onFocus={handleFocus}
                     required
                 />
+                {/*defaultValue={new Date().toISOString().split("T")[0]}*/}
 
                 <label htmlFor="lote">Lote:</label>
                 <input
                     type="text"
                     name="lote"
                     id="lote"
-                    defaultValue="200T89756"
                     onFocus={handleFocus}
                     required
                 />
+                {/*defaultValue="200T89756"*/}
 
                 <label htmlFor="producto">Nombre del Producto:</label>
                 <input
                     type="text"
                     name="producto"
                     id="producto"
-                    defaultValue="Eslinga"
+                    defaultValue={name}
                     onFocus={handleFocus}
                     required
                 />
@@ -140,11 +144,11 @@ export default function MainForm() {
                     type="text"
                     name="serie"
                     id="serie"
-                    defaultValue="7898852"
                     onFocus={handleFocus}
                     required
                 />
             </div>
+            {/*defaultValue="7898852"*/}
             <div className="flex-container">
                 <h3>FORMATO DE INSPECCIÓN DE EQUIPOS</h3>
                 <p>
@@ -203,7 +207,12 @@ export default function MainForm() {
             <label className="subtitle" htmlFor="informe">
                 Informe final del equipo/conclusiones:
             </label>
-            <textarea name="informe" id="informe" required></textarea>
+            <textarea
+                name="informe"
+                id="informe"
+                required
+                defaultValue={conclusions}
+            ></textarea>
             <div className="buttons">
                 <button>Guardar</button>
             </div>
