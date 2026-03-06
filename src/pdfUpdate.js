@@ -161,8 +161,9 @@ async function pdfUpdate(form) {
     //pdfForm.flatten();
 
     const modifiedDoc = await pdfDoc.save({
-        addDefaultPage: false,
-        objectsPerTick: 100,
+        useObjectStreams: false,
+        //addDefaultPage: false,
+        //objectsPerTick: 100,
         //updateFieldAppearances: false,
     });
 
