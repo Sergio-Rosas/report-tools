@@ -74,8 +74,8 @@ export default function MainForm() {
                     id="empresa"
                     onFocus={handleFocus}
                     required
+                    defaultValue="Empresa Temporal"
                 />
-                {/*defaultValue="Empresa Temporal"*/}
 
                 <label htmlFor="fecha-fabricacion">Fecha de Fabricación:</label>
                 <input
@@ -85,8 +85,8 @@ export default function MainForm() {
                     min="2016-01-01"
                     onFocus={handleFocus}
                     required
+                    defaultValue="2020-11-02"
                 />
-                {/*defaultValue="2020-11-02"*/}
 
                 <label htmlFor="distribuidor">Distribuidor:</label>
                 <input
@@ -95,8 +95,8 @@ export default function MainForm() {
                     id="distribuidor"
                     onFocus={handleFocus}
                     required
+                    defaultValue="Distribuciones"
                 />
-                {/*defaultValue="Distribuciones"*/}
 
                 <label htmlFor="referencia">Referencia:</label>
                 <input
@@ -116,8 +116,8 @@ export default function MainForm() {
                     min="2026-01-01"
                     onFocus={handleFocus}
                     required
+                    defaultValue={new Date().toISOString().split("T")[0]}
                 />
-                {/*defaultValue={new Date().toISOString().split("T")[0]}*/}
 
                 <label htmlFor="lote">Lote:</label>
                 <input
@@ -126,8 +126,8 @@ export default function MainForm() {
                     id="lote"
                     onFocus={handleFocus}
                     required
+                    defaultValue="200T89756"
                 />
-                {/*defaultValue="200T89756"*/}
 
                 <label htmlFor="producto">Nombre del Producto:</label>
                 <input
@@ -146,9 +146,9 @@ export default function MainForm() {
                     id="serie"
                     onFocus={handleFocus}
                     required
+                    defaultValue="7898852"
                 />
             </div>
-            {/*defaultValue="7898852"*/}
             <div className="flex-container">
                 <h3>FORMATO DE INSPECCIÓN DE EQUIPOS</h3>
                 <p>
