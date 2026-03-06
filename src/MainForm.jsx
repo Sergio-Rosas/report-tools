@@ -3,7 +3,7 @@ import { pdfUpdate } from "./pdfUpdate";
 import Table from "./Table";
 import dataArr from "./data";
 
-export default function MainForm() {
+export default function MainForm(template) {
     const data = dataArr[0].conditions;
     const name = dataArr[0].name;
     const reference = dataArr[0].reference;

@@ -17,6 +17,10 @@ body {
     background-color: var(--page-background);
 }
 
+.select-form {
+    inline-size: 500px;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
