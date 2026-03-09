@@ -1,13 +1,12 @@
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
+
 import dataArr from "./data";
 
-export default function MainForm(template) {
-    const data = dataArr[0].conditions;
-    const name = dataArr[0].name;
-    const reference = dataArr[0].reference;
-    const conclusions = dataArr[0].conclusions;
+export default function MainForm({template}) {
+    const data = dataArr.filter((data) => data.name === template);
+    const {conditions, name, reference, conclusions} = data.at(0);
 
     async function save(formData) {
         await pdfUpdate(Object.fromEntries(formData));
@@ -147,7 +146,7 @@ export default function MainForm(template) {
                 </p>
             </div>
             <div className="table-container">
-                {data.map((obj, index) => (
+                {conditions.map((obj, index) => (
                     <Table
                         titulo={`${obj.title}`}
                         condiciones={obj.elems}

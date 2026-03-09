@@ -1,34 +1,36 @@
-import { useState, useRef } from "react";
-export default function Templates() {
+import { useRef } from "react";
+export default function Templates({handleTemplate}) {
     const selectedTemplate = useRef("");
 
-    function temp(form) {}
+    function processTemplate() {
+        handleTemplate(selectedTemplate.current);
+    }
 
     return (
-        <form action={temp} className="select-form">
+        <form action={processTemplate} className="select-form">
             <select
                 name="template"
                 id="template"
                 onChange={(e) => (selectedTemplate.current = e.target.value)}
             >
-                <option value="seleccion" disabled defaultValue>
+                <option value="seleccion" defaultValue>
                     Seleccione una plantilla
                 </option>
                 <option value="Adaptador de anclaje">
                     Adaptador de anclaje
                 </option>
                 <option value="Arnes">Arnes</option>
-                <option value="Cuerda semiestatica de 11mm">Cuerda</option>
+                <option value="Cuerda semiestatica de 11mm">Cuerda semiestatica de 11mm</option>
                 <option value="En blanco">En blanco</option>
                 <option value="Eslinga con absorbedor de impacto">
                     Eslinga con absorbedor de impacto
                 </option>
                 <option value="Eslinga de posicionamiento">
-                    Eslinga con posicionamiento
+                    Eslinga de posicionamiento
                 </option>
-                <option value="Freno arrestador automatico">Freno</option>
+                <option value="Freno arrestador automatico">Freno arrestador automatico</option>
                 <option value="Mosqueton carabinero automatico">
-                    Mosqueton
+                    Mosqueton carabinero automatico
                 </option>
                 <option value="Polea">Polea</option>
             </select>
