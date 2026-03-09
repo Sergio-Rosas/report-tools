@@ -11,7 +11,7 @@ export default function Templates() {
                 id="template"
                 onChange={(e) => (selectedTemplate.current = e.target.value)}
             >
-                <option value="seleccion" disabled selected>
+                <option value="seleccion" disabled defaultValue>
                     Seleccione una plantilla
                 </option>
                 <option value="Adaptador de anclaje">

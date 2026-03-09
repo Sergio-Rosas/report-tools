@@ -1,3 +1,4 @@
+/*
 const data = [
     {
         name: "Adaptador de anclaje",
@@ -218,6 +219,7 @@ const data = [
         ],
     },
 ];
+ */
 
 const persistentInformation = {
     conclusions:
@@ -522,73 +524,33 @@ const templates = [
     },
 ];
 
-const data2 = templates.map((template) => {
+const data = templates.map((template) => {
     const newTemplate = {
         ...template,
-        defaultValues: template.defaultValues.map((arr, index) => {
+        conditions: template.defaultValues.map((arr, index) => {
             let values = {};
             for (let i = 0; i < arr.length; i++) {
                 values = {
                     ...persistentInformation.conditions[index],
-                    elems: {
-                        ...persistentInformation.conditions[index].elems[i],
-                        status:
-                            arr[i] === 1
-                                ? "cumple"
-                                : arr[i] === -1
-                                  ? "no cumple"
-                                  : "no aplica",
-                    },
+                    elems:
+                        persistentInformation.conditions[index].elems.map((el, j) => {
+                            return {
+                                name: el.name,
+                                status:
+                                    arr[j] === 1
+                                        ? "cumple"
+                                        : arr[j] === -1
+                                            ? "no cumple"
+                                            : "no aplica",
+                            }
+                        }),
                 };
             }
             return values;
         }),
     };
+    delete newTemplate.defaultValues;
     return newTemplate;
 });
 
-console.log(data2);
-
-// status: "cumple"
 export default data;
-
-/*
-    {
-        name: "Adaptador de anclaje",
-        company: "",
-        reference: "IN80",
-        distributor: "",
-        serial: "",
-        defaultValues: [
-            [1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 0, 0],
-            [1, 1, 1, 0, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ],
-    },
-
-
-            {
-                title: "CONDICIÓN DE LAS ETIQUETAS",
-                elems: [
-                    {
-                        name: "El lote es legible",
-                        status: "cumple",
-                    },
-                    {
-                        name: "El serial es legible",
-                        status: "cumple",
-                    },
-                    {
-                        name: "La fecha de fabricación es legible",
-                        status: "cumple",
-                    },
-                    {
-                        name: "La etiqueta esta completa",
-                        status: "cumple",
-                    },
-                ],
-            },
-            */
