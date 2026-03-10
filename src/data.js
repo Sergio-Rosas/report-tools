@@ -222,6 +222,7 @@ const data = [
  */
 
 const persistentInformation = {
+    distributor: "N/A",
     conclusions:
         "El equipo puede continuar en servicio, se realizan las siguientes recomendaciones para garantizar su conservacion y durabilidad de la vida util:\n- Realizar inspecciones preoperacionales por parte del personal ejecutor de la labor, inspecciones periodicas por parte del area SST de la empresa e inspecciones anuales realizadas por una persona avalada por el fabricante.\n- Realizar limpieza/mantenimiento de manera periodica y adecuado almacenamiento del equipo, de acuerdo a recomendaciones del fabricante.",
     conditions: [
@@ -396,10 +397,7 @@ const persistentInformation = {
 const templates = [
     {
         name: "Adaptador de anclaje",
-        company: "",
         reference: "IN80",
-        distributor: "",
-        serial: "",
         defaultValues: [
             [1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -411,10 +409,7 @@ const templates = [
     },
     {
         name: "Arnes",
-        company: "",
         reference: "IN",
-        distributor: "N/A",
-        serial: "",
         defaultValues: [
             [1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -426,10 +421,7 @@ const templates = [
     },
     {
         name: "Cuerda semiestatica de 11mm",
-        company: "",
         reference: "IN9011",
-        distributor: "N/A",
-        serial: "",
         defaultValues: [
             [1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 0],
@@ -441,18 +433,19 @@ const templates = [
     },
     {
         name: "En blanco",
-        company: "",
         reference: "",
-        distributor: "",
-        serial: "",
-        defaultValues: [[], [], [], [], [], []],
+        defaultValues: [
+            [null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+        ],
     },
     {
         name: "Eslinga con absorbedor de impacto",
-        company: "",
         reference: "IN80",
-        distributor: "",
-        serial: "",
         defaultValues: [
             [1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 1],
@@ -464,10 +457,7 @@ const templates = [
     },
     {
         name: "Eslinga de posicionamiento",
-        company: "",
         reference: "IN80",
-        distributor: "",
-        serial: "",
         defaultValues: [
             [1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -479,10 +469,7 @@ const templates = [
     },
     {
         name: "Freno arrestador automatico",
-        company: "",
         reference: "N",
-        distributor: "",
-        serial: "N/A",
         defaultValues: [
             [1, 0, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -494,10 +481,7 @@ const templates = [
     },
     {
         name: "Mosqueton carabinero automatico",
-        company: "Estilo ingenieria",
         reference: "N",
-        distributor: "N/A",
-        serial: "N/A",
         defaultValues: [
             [1, 0, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -509,10 +493,7 @@ const templates = [
     },
     {
         name: "Polea",
-        company: "",
         reference: "IN",
-        distributor: "N/A",
-        serial: "",
         defaultValues: [
             [1, 1, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -527,23 +508,27 @@ const templates = [
 const data = templates.map((template) => {
     const newTemplate = {
         ...template,
+        ...persistentInformation,
         conditions: template.defaultValues.map((arr, index) => {
             let values = {};
             for (let i = 0; i < arr.length; i++) {
                 values = {
                     ...persistentInformation.conditions[index],
-                    elems:
-                        persistentInformation.conditions[index].elems.map((el, j) => {
+                    elems: persistentInformation.conditions[index].elems.map(
+                        (el, j) => {
                             return {
                                 name: el.name,
                                 status:
                                     arr[j] === 1
                                         ? "cumple"
                                         : arr[j] === -1
-                                            ? "no cumple"
-                                            : "no aplica",
-                            }
-                        }),
+                                          ? "no cumple"
+                                          : arr[j] === 0
+                                            ? "no aplica"
+                                            : "",
+                            };
+                        },
+                    ),
                 };
             }
             return values;

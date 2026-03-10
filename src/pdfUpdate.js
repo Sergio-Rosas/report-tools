@@ -3,7 +3,7 @@ import { PDFDocument } from "pdf-lib";
 function pdfDownloader(pdf, filename) {
     const blob = new Blob([pdf], {
         type: "application/pdf",
-        endings: "transparent",
+        //endings: "transparent",
     });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -112,7 +112,7 @@ async function pdfUpdate(form) {
     pdfForm
         .getTextField("untitled196")
         .setText(
-            `${fabricationDate.getDate()} DE ${monthConverter[fabricationDate.getMonth()]} DE ${fabricationDate.getFullYear()}`,
+            `${monthConverter[fabricationDate.getMonth()]} DE ${fabricationDate.getFullYear()}`,
         );
     pdfForm
         .getTextField("untitled193")

@@ -4,9 +4,11 @@ import Table from "./Table";
 
 import dataArr from "./data";
 
-export default function MainForm({template}) {
+export default function MainForm({ template, handleTemplate }) {
+    const defaultValue = true;
     const data = dataArr.filter((data) => data.name === template);
-    const {conditions, name, reference, conclusions} = data.at(0);
+    const { conditions, name, reference, conclusions, distributor } =
+        data.at(0);
 
     async function save(formData) {
         await pdfUpdate(Object.fromEntries(formData));
@@ -26,7 +28,7 @@ export default function MainForm({template}) {
                         value="fabricante"
                         id="fabricante"
                         name="usuario"
-                        defaultChecked="true"
+                        defaultChecked={name !== "En blanco" && "true"}
                         required
                     />
                     <label htmlFor="fabricante">Fabricante</label>
@@ -63,8 +65,8 @@ export default function MainForm({template}) {
                     id="empresa"
                     onFocus={handleFocus}
                     required
+                    defaultValue={defaultValue ? "Empresa Temporal" : ""}
                 />
-                {/*defaultValue="Empresa Temporal"*/}
 
                 <label htmlFor="fecha-fabricacion">Fecha de Fabricación:</label>
                 <input
@@ -74,8 +76,8 @@ export default function MainForm({template}) {
                     min="2016-01-01"
                     onFocus={handleFocus}
                     required
+                    defaultValue={defaultValue ? "2020-11-02" : ""}
                 />
-                {/*defaultValue="2020-11-02"*/}
 
                 <label htmlFor="distribuidor">Distribuidor:</label>
                 <input
@@ -84,8 +86,8 @@ export default function MainForm({template}) {
                     id="distribuidor"
                     onFocus={handleFocus}
                     required
+                    value={name === "En blanco" ? "" : distributor}
                 />
-                {/*defaultValue="Distribuciones"*/}
 
                 <label htmlFor="referencia">Referencia:</label>
                 <input
@@ -105,8 +107,12 @@ export default function MainForm({template}) {
                     min="2026-01-01"
                     onFocus={handleFocus}
                     required
+                    defaultValue={
+                        defaultValue
+                            ? new Date().toISOString().split("T")[0]
+                            : ""
+                    }
                 />
-                {/*defaultValue={new Date().toISOString().split("T")[0]}*/}
 
                 <label htmlFor="lote">Lote:</label>
                 <input
@@ -115,15 +121,15 @@ export default function MainForm({template}) {
                     id="lote"
                     onFocus={handleFocus}
                     required
+                    defaultValue={defaultValue ? "200T89756" : ""}
                 />
-                {/*defaultValue="200T89756"*/}
 
                 <label htmlFor="producto">Nombre del Producto:</label>
                 <input
                     type="text"
                     name="producto"
                     id="producto"
-                    defaultValue={name}
+                    defaultValue={name === "En blanco" ? "" : name}
                     onFocus={handleFocus}
                     required
                 />
@@ -135,9 +141,9 @@ export default function MainForm({template}) {
                     id="serie"
                     onFocus={handleFocus}
                     required
+                    defaultValue={defaultValue ? "7898852" : ""}
                 />
             </div>
-            {/*defaultValue="7898852"*/}
             <div className="flex-container">
                 <h3>FORMATO DE INSPECCIÓN DE EQUIPOS</h3>
                 <p>
@@ -148,8 +154,8 @@ export default function MainForm({template}) {
             <div className="table-container">
                 {conditions.map((obj, index) => (
                     <Table
-                        titulo={`${obj.title}`}
-                        condiciones={obj.elems}
+                        title={`${obj.title}`}
+                        conditions={obj.elems}
                         index={index + 1}
                         key={obj.title}
                     />
@@ -175,7 +181,7 @@ export default function MainForm({template}) {
                         value="continua"
                         id="continua"
                         name="servicio"
-                        defaultChecked="true"
+                        defaultChecked={name !== "En blanco" && "true"}
                         required
                     />
                     <label htmlFor="continua">Continúa en servicio</label>
@@ -200,10 +206,16 @@ export default function MainForm({template}) {
                 name="informe"
                 id="informe"
                 required
-                defaultValue={conclusions}
+                defaultValue={name === "En blanco" ? "" : conclusions}
             ></textarea>
             <div className="buttons">
-                <button>Guardar</button>
+                <input
+                    type="button"
+                    value="↵ Regresar"
+                    className="button button--back"
+                    onClick={() => handleTemplate(false)}
+                />
+                <button className="button button--save">Guardar</button>
             </div>
         </form>
     );

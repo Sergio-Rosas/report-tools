@@ -236,29 +236,36 @@ textarea {
     resize: none;
 }
 
-button {
+.button {
     text-transform: uppercase;
     font-family: "Noto Sans", sans-serif;
     inline-size: fit-content;
     padding: 10px 15px;
     font-weight: 700;
     border: none;
-    background-color: var(--primary-color);
     color: white;
     font-size: 1.1rem;
     cursor: pointer;
     transition: filter 150ms ease-in;
 }
 
-.buttons {
-    display: flex;
-    justify-content: flex-end;
+.button--save {
+    background-color: var(--primary-color);
 }
 
-button:hover {
+.button--back {
+    background-color: var(--contrast-color);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button:hover {
     filter: brightness(0.9);
 }
 
-button:active {
+.button:active {
     filter: brightness(1.2);
 }

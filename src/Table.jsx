@@ -1,11 +1,11 @@
-export default function Table({ titulo, condiciones, index }) {
+export default function Table({ title, conditions, index }) {
     function handleFocus(e) {
         e.target.select();
     }
 
     return (
         <fieldset>
-            <legend>{`${index} ${titulo}`}</legend>
+            <legend>{`${index} ${title}`}</legend>
             <div className="table">
                 <p></p>
                 <label htmlFor="" className="table__title table__title--center">
@@ -21,12 +21,12 @@ export default function Table({ titulo, condiciones, index }) {
                     Observaciones
                 </label>
 
-                {condiciones.map((condicion, i) => {
+                {conditions.map((condition, i) => {
                     return (
                         <>
                             <label
                                 className={`${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
-                            >{`${index}.${i + 1} ${condicion.name}`}</label>
+                            >{`${index}.${i + 1} ${condition.name}`}</label>
                             <div
                                 className={`radio-container ${i % 2 !== 1 ? "table__row--even-background" : "table__row--odd-background"}`}
                             >
@@ -37,7 +37,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     id=""
                                     name={`${index}.${i + 1}`}
                                     defaultChecked={
-                                        condicion.status === "cumple"
+                                        condition.status === "cumple"
                                     }
                                     required
                                 />
@@ -52,7 +52,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     id=""
                                     name={`${index}.${i + 1}`}
                                     defaultChecked={
-                                        condicion.status === "no cumple"
+                                        condition.status === "no cumple"
                                     }
                                     required
                                 />
@@ -67,7 +67,7 @@ export default function Table({ titulo, condiciones, index }) {
                                     id=""
                                     name={`${index}.${i + 1}`}
                                     defaultChecked={
-                                        condicion.status === "no aplica"
+                                        condition.status === "no aplica"
                                     }
                                     required
                                 />
@@ -79,9 +79,9 @@ export default function Table({ titulo, condiciones, index }) {
                                 name={`observaciones ${index}.${i + 1}`}
                                 required
                                 defaultValue={
-                                    condicion.status === "cumple"
+                                    condition.status === "cumple"
                                         ? "Cumple al momento de la inspección"
-                                        : condicion.status === "no aplica"
+                                        : condition.status === "no aplica"
                                           ? "No aplica para este equipo"
                                           : ""
                                 }
