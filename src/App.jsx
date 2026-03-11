@@ -1,5 +1,4 @@
 // npm run dev
-// TODO Create header with the title of the document.
 // TODO When the "guardar" button is clicked the form goes back to the template state.
 // TODO Some templates has different text in "Otros ¿Cuál?" option.
 // TODO Mobile compatibility.

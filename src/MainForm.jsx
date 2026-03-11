@@ -5,7 +5,7 @@ import Table from "./Table";
 import dataArr from "./data";
 
 export default function MainForm({ template, handleTemplate }) {
-    const defaultValue = true;
+    const defaultValue = false;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
@@ -16,6 +16,13 @@ export default function MainForm({ template, handleTemplate }) {
 
     function handleFocus(e) {
         e.target.select();
+    }
+
+    function handleBack() {
+        const confirmation = confirm(
+            "¿Está seguro de regresar?\nNingún cambio de esta plantilla será guardado.",
+        );
+        confirmation && handleTemplate(false);
     }
 
     return (
@@ -163,6 +170,7 @@ export default function MainForm({ template, handleTemplate }) {
                             title={`${obj.title}`}
                             conditions={obj.elems}
                             index={index + 1}
+                            template={template}
                             key={obj.title}
                         />
                     ))}
@@ -220,9 +228,14 @@ export default function MainForm({ template, handleTemplate }) {
                         type="button"
                         value="↵ Regresar"
                         className="button button--back"
-                        onClick={() => handleTemplate(false)}
+                        onClick={handleBack}
                     />
-                    <button className="button button--save">Guardar</button>
+                    <div className="buttons">
+                        <button className="button button--save">Guardar</button>
+                        <button className="button button--save">
+                            Guardar y bloquear
+                        </button>
+                    </div>
                 </div>
             </form>
         </>

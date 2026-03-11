@@ -1,6 +1,40 @@
-export default function Table({ title, conditions, index }) {
+export default function Table({ title, conditions, index, template }) {
     function handleFocus(e) {
         e.target.select();
+    }
+
+    function obervationsText(status, index, i, template) {
+        if (status === "cumple") {
+            if (template === "Arnes" && `${index}.${i + 1}` === "5.7") {
+                return "Portaeslingas en buen estado";
+            } else if (template === "Cuerda semiestatica de 11mm") {
+                if (`${index}.${i + 1}` === "2.5") {
+                    return "Cuerda no deshilachada";
+                } else if (`${index}.${i + 1}` === "2.6") {
+                    return "Cuerda sin rastros químicos";
+                } else if (`${index}.${i + 1}` === "2.7") {
+                    return "Cuerda sin quemadura";
+                } else {
+                    return "Cumple al momento de la inspección";
+                }
+            } else if (
+                template === "Freno arrestador automatico" &&
+                `${index}.${i + 1}` === "6.11"
+            ) {
+                return "Seguros funcionales";
+            } else if (
+                template === "Mosqueton carabinero automatico" &&
+                `${index}.${i + 1}` === "6.11"
+            ) {
+                return "Seguros funcionales";
+            } else {
+                return "Cumple al momento de la inspección";
+            }
+        } else if (status === "no aplica") {
+            return "No aplica para este equipo";
+        } else {
+            return "";
+        }
     }
 
     return (
@@ -78,13 +112,13 @@ export default function Table({ title, conditions, index }) {
                                 onFocus={handleFocus}
                                 name={`observaciones ${index}.${i + 1}`}
                                 required
-                                defaultValue={
-                                    condition.status === "cumple"
-                                        ? "Cumple al momento de la inspección"
-                                        : condition.status === "no aplica"
-                                          ? "No aplica para este equipo"
-                                          : ""
-                                }
+                                defaultValue={(() =>
+                                    obervationsText(
+                                        condition.status,
+                                        index,
+                                        i,
+                                        template,
+                                    ))()}
                             />
                         </>
                     );

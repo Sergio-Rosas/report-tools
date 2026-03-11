@@ -15,7 +15,7 @@ function pdfDownloader(pdf, filename) {
     URL.revokeObjectURL(url);
 }
 
-async function pdfUpdate(form) {
+async function pdfUpdate(form, type = false) {
     const monthConverter = {
         0: "ENERO",
         1: "FEBRERO",
@@ -158,7 +158,9 @@ async function pdfUpdate(form) {
     }
     pdfForm.getTextField("untitled185").setText(form.informe);
 
-    //pdfForm.flatten();
+    if (type) {
+        pdfForm.flatten();
+    }
 
     const modifiedDoc = await pdfDoc.save({
         useObjectStreams: false,
@@ -167,10 +169,12 @@ async function pdfUpdate(form) {
         //updateFieldAppearances: false,
     });
 
+    /*
     pdfDownloader(
         modifiedDoc,
         `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[inspectionDate.getMonth()]).slice(0, 3)}${String(inspectionDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
     );
+    */
 }
 
 export { pdfUpdate };
