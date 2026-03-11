@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
@@ -9,9 +10,14 @@ export default function MainForm({ template, handleTemplate }) {
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
+    const statusType = useRef(false);
+
+    function statusPass(e) {
+        statusType.current = Boolean(e.target.value);
+    }
 
     async function save(formData) {
-        await pdfUpdate(Object.fromEntries(formData));
+        await pdfUpdate(Object.fromEntries(formData), statusType.current);
     }
 
     function handleFocus(e) {
@@ -232,7 +238,11 @@ export default function MainForm({ template, handleTemplate }) {
                     />
                     <div className="buttons">
                         <button className="button button--save">Guardar</button>
-                        <button className="button button--save">
+                        <button
+                            className="button button--save"
+                            value="true"
+                            onClick={statusPass}
+                        >
                             Guardar y bloquear
                         </button>
                     </div>
