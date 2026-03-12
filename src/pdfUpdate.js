@@ -1,4 +1,4 @@
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, PDFName, PDFBool } from "pdf-lib";
 
 function pdfDownloader(pdf, filename) {
     const blob = new Blob([pdf], {
@@ -157,6 +157,10 @@ async function pdfUpdate(form, type = false) {
         pdfForm.getCheckBox("untitled171").check();
     }
     pdfForm.getTextField("untitled185").setText(form.informe);
+
+    pdfDoc
+        .getForm()
+        .acroForm.dict.set(PDFName.of("NeedAppearances"), PDFBool.True);
 
     if (type) {
         pdfForm.flatten();
