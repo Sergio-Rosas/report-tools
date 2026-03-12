@@ -1,4 +1,4 @@
-import { PDFDocument, PDFName, PDFBool } from "pdf-lib";
+import { PDFDocument, PDFName, PDFBool, StandardFonts } from "pdf-lib";
 
 function pdfDownloader(pdf, filename) {
     const blob = new Blob([pdf], {
@@ -158,17 +158,35 @@ async function pdfUpdate(form, type = false) {
     }
     pdfForm.getTextField("untitled185").setText(form.informe);
 
+    pdfForm.updateFieldAppearances();
+
+    if (type) {
+        //pdfForm.flatten();
+        //pdfForm.getFields().forEach((field) => field.enableReadOnly());
+        // Adding the signature.
+        //const imageUrl = await fetch("/signature.jpeg");
+        const imageUrl = await fetch("/signature.png");
+        const imageBytes = await imageUrl.arrayBuffer();
+        //const image = await pdfDoc.embedJpg(imageBytes);
+        const image = await pdfDoc.embedPng(imageBytes);
+        const jpgDims = image.scale(0.5);
+        const pages = pdfDoc.getPages();
+        const secondPage = pages[1];
+        secondPage.drawImage(image, {
+            x: 60,
+            y: 290,
+            width: jpgDims.width,
+            height: jpgDims.height,
+        });
+    }
+
     pdfDoc
         .getForm()
         .acroForm.dict.set(PDFName.of("NeedAppearances"), PDFBool.True);
 
-    if (type) {
-        pdfForm.flatten();
-    }
-
     const modifiedDoc = await pdfDoc.save({
         useObjectStreams: false,
-        //addDefaultPage: false,
+        addDefaultPage: false,
         //objectsPerTick: 100,
         //updateFieldAppearances: false,
     });
