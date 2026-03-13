@@ -1,4 +1,4 @@
-import { PDFDocument, PDFName, PDFBool, StandardFonts } from "pdf-lib";
+import { PDFDocument, PDFName, PDFBool, StandardFonts, rgb } from "pdf-lib";
 
 function pdfDownloader(pdf, filename) {
     const blob = new Blob([pdf], {
@@ -158,16 +158,13 @@ async function pdfUpdate(form, type = false) {
     }
     pdfForm.getTextField("untitled185").setText(form.informe);
 
-    pdfForm.updateFieldAppearances();
-
     if (type) {
-        //pdfForm.flatten();
-        //pdfForm.getFields().forEach((field) => field.enableReadOnly());
+        console.log("Enter flattening");
+        //pdfForm.flatten({ updateFieldAppearances: true });
+        pdfForm.getFields().forEach((field) => field.enableReadOnly());
         // Adding the signature.
-        //const imageUrl = await fetch("/signature.jpeg");
         const imageUrl = await fetch("/signature.png");
         const imageBytes = await imageUrl.arrayBuffer();
-        //const image = await pdfDoc.embedJpg(imageBytes);
         const image = await pdfDoc.embedPng(imageBytes);
         const jpgDims = image.scale(0.5);
         const pages = pdfDoc.getPages();
@@ -177,8 +174,11 @@ async function pdfUpdate(form, type = false) {
             y: 290,
             width: jpgDims.width,
             height: jpgDims.height,
+            opacity: 1.0,
         });
     }
+
+    //pdfForm.updateFieldAppearances();
 
     pdfDoc
         .getForm()
@@ -186,7 +186,7 @@ async function pdfUpdate(form, type = false) {
 
     const modifiedDoc = await pdfDoc.save({
         useObjectStreams: false,
-        addDefaultPage: false,
+        //addDefaultPage: false,
         //objectsPerTick: 100,
         //updateFieldAppearances: false,
     });
@@ -196,5 +196,39 @@ async function pdfUpdate(form, type = false) {
         `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[inspectionDate.getMonth()]).slice(0, 3)}${String(inspectionDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
     );
 }
+
+/*
+async function pdfUpdate2() {
+    const document = await PDFDocument.create();
+    const timesRomanFont = await document.embedFont(StandardFonts.TimesRoman);
+
+    const page = document.addPage();
+    const { width, height } = page.getSize();
+    const fontSize = 30;
+    page.drawText("Creating PDFs in JavaScript is awesome", {
+        x: 50,
+        y: height - 4 * fontSize,
+        size: fontSize,
+        font: timesRomanFont,
+        color: rgb(0, 0.53, 0.71),
+    });
+
+    const imageUrl = await fetch("/signature.png");
+    const imageBytes = await imageUrl.arrayBuffer();
+    const image = await document.embedPng(imageBytes);
+    const jpgDims = image.scale(0.5);
+    const pages = document.getPages();
+    const firstPage = pages[0];
+    firstPage.drawImage(image, {
+        x: 60,
+        y: 50,
+        width: jpgDims.width,
+        height: jpgDims.height,
+    });
+
+    const pdfBytes = await document.save();
+    pdfDownloader(pdfBytes, "test.pdf");
+}
+    */
 
 export { pdfUpdate };
