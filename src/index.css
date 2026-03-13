@@ -50,11 +50,19 @@ input[type="text"],
 input[type="date"] {
     font-family: "Noto Sans", sans-serif;
     padding-inline: 5px;
+    font-size: 0.85rem;
 }
 
 input[type="text"],
 input[type="date"] {
     text-transform: uppercase;
+}
+:is(textarea,
+input[type="text"],
+input[type="date"],
+.table__radio):focus {
+    outline: 2px solid var(--primary-color);
+    border-color: transparent;
 }
 
 .title {
@@ -161,12 +169,12 @@ legend {
     place-content: center;
     position: relative;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .radio-square:before {
     content: "✓";
-    inset-block-start: -13px;
-    inset-inline-start: 1px;
+    inset-block-start: -14px;
     font-size: 1.4rem;
     inline-size: 9px;
     aspect-ratio: 1;
@@ -194,19 +202,20 @@ legend {
     place-content: center;
     position: relative;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .table__radio--positive:before {
     content: "✓";
-    inset-block-start: -10px;
-    inset-inline-start: 3px;
+    inset-block-start: -12px;
+    inset-inline-start: 1px;
     font-size: 1.5rem;
 }
 
 .table__radio--negative:before {
     content: "✗";
-    inset-block-start: -6px;
-    inset-inline-start: 1px;
+    inset-block-start: -12px;
+    inset-inline-start: -2px;
     font-size: 1.6rem;
 }
 
