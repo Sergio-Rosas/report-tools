@@ -13,10 +13,12 @@ export default function MainForm({ template, handleTemplate }) {
     const statusType = useRef(false);
 
     function statusPass(e) {
-        statusType.current = Boolean(e.target.value);
+        statusType.current = e.target.value === "true";
     }
 
-    async function save(formData) {
+    async function save(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
         await pdfUpdate(Object.fromEntries(formData), statusType.current);
     }
 
@@ -34,7 +36,7 @@ export default function MainForm({ template, handleTemplate }) {
     return (
         <>
             <h2 className="title title--template">{template}</h2>
-            <form className="form" action={save}>
+            <form className="form" onSubmit={save}>
                 <div className="user">
                     <div className="radio-square--container">
                         <input
@@ -237,7 +239,13 @@ export default function MainForm({ template, handleTemplate }) {
                         onClick={handleBack}
                     />
                     <div className="buttons">
-                        <button className="button button--save">Guardar</button>
+                        <button
+                            className="button button--save"
+                            value="false"
+                            onClick={statusPass}
+                        >
+                            Guardar
+                        </button>
                         <button
                             className="button button--save"
                             value="true"

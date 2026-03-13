@@ -159,7 +159,6 @@ async function pdfUpdate(form, type = false) {
     pdfForm.getTextField("untitled185").setText(form.informe);
 
     if (type) {
-        console.log("Enter flattening");
         //pdfForm.flatten({ updateFieldAppearances: true });
         pdfForm.getFields().forEach((field) => field.enableReadOnly());
         // Adding the signature.

@@ -1,7 +1,7 @@
 // npm run dev
-// TODO When the "guardar" button is clicked the form goes back to the template state.
-// TODO Some templates has different text in "Otros ¿Cuál?" option.
 // TODO Mobile compatibility.
+// The template component need to show the company name and the products evaulated.
+//   Use localStorage for that.
 import { useState } from "react";
 
 import Header from "./Header";
