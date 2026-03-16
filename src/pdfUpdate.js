@@ -92,7 +92,7 @@ async function pdfUpdate(form, type = false) {
     ];
     const pdfUrl = await fetch("/template.pdf");
     const pdfBytes = await pdfUrl.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pdfDoc = await PDFDocument.load(pdfBytes, {ignoreEncryption: true});
     const pdfForm = pdfDoc.getForm();
 
     // Filling field by field.
@@ -177,7 +177,7 @@ async function pdfUpdate(form, type = false) {
         });
     }
 
-    //pdfForm.updateFieldAppearances();
+    pdfForm.updateFieldAppearances();
 
     pdfDoc
         .getForm()
