@@ -1,7 +1,9 @@
 // npm run dev
 // TODO Mobile compatibility.
-// The template component need to show the company name and the products evaulated.
+// TODO The template component need to show the company name and the products evaluated.
 //   Use localStorage for that.
+// TODO No blank fields.
+// TODO Max size in textarea.
 import { useState } from "react";
 
 import Header from "./Header";

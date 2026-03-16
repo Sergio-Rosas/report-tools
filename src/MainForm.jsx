@@ -6,7 +6,7 @@ import Table from "./Table";
 import dataArr from "./data";
 
 export default function MainForm({ template, handleTemplate }) {
-    const defaultValue = true;
+    const defaultValue = false;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
