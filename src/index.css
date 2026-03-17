@@ -57,10 +57,7 @@ input[type="text"],
 input[type="date"] {
     text-transform: uppercase;
 }
-:is(textarea,
-input[type="text"],
-input[type="date"],
-.table__radio):focus {
+:is(textarea, input[type="text"], input[type="date"], .table__radio):focus {
     outline: 2px solid var(--primary-color);
     border-color: transparent;
 }
@@ -264,7 +261,7 @@ legend {
 }
 
 textarea {
-    block-size: 120px;
+    block-size: 80px;
     resize: none;
 }
 
@@ -301,4 +298,9 @@ textarea {
 
 .button:active {
     filter: brightness(1.2);
+}
+
+.gap-space {
+    display: flex;
+    column-gap: 10px;
 }

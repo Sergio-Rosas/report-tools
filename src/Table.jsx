@@ -112,6 +112,7 @@ export default function Table({ title, conditions, index, template }) {
                                 onFocus={handleFocus}
                                 name={`observaciones ${index}.${i + 1}`}
                                 required
+                                pattern="^[^\s]+.+[^\s]$"
                                 defaultValue={(() =>
                                     obervationsText(
                                         condition.status,

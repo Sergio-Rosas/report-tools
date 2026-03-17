@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
@@ -6,7 +6,7 @@ import Table from "./Table";
 import dataArr from "./data";
 
 export default function MainForm({ template, handleTemplate }) {
-    const defaultValue = false;
+    const defaultValue = true;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
@@ -32,6 +32,14 @@ export default function MainForm({ template, handleTemplate }) {
         );
         confirmation && handleTemplate(false);
     }
+
+    function preventRefresh(e) {
+        e.preventDefault();
+    }
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", preventRefresh);
+    }, []);
 
     return (
         <>
@@ -82,6 +90,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="empresa"
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                         defaultValue={defaultValue ? "Empresa Temporal" : ""}
                     />
 
@@ -95,6 +104,7 @@ export default function MainForm({ template, handleTemplate }) {
                         min="2016-01-01"
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                         defaultValue={defaultValue ? "2020-11-02" : ""}
                     />
 
@@ -105,6 +115,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="distribuidor"
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                         value={name === "En blanco" ? "" : distributor}
                     />
 
@@ -116,6 +127,7 @@ export default function MainForm({ template, handleTemplate }) {
                         defaultValue={reference}
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                     />
 
                     <label htmlFor="fecha-inspeccion">
@@ -128,6 +140,7 @@ export default function MainForm({ template, handleTemplate }) {
                         min="2026-01-01"
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                         defaultValue={
                             defaultValue
                                 ? new Date().toISOString().split("T")[0]
@@ -142,6 +155,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="lote"
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                         defaultValue={defaultValue ? "200T89756" : ""}
                     />
 
@@ -153,6 +167,7 @@ export default function MainForm({ template, handleTemplate }) {
                         defaultValue={name === "En blanco" ? "" : name}
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                     />
 
                     <label htmlFor="serie">Serie:</label>
@@ -162,6 +177,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="serie"
                         onFocus={handleFocus}
                         required
+                        pattern="^[^\s]+.+[^\s]$"
                         defaultValue={defaultValue ? "7898852" : ""}
                     />
                 </div>
@@ -229,6 +245,7 @@ export default function MainForm({ template, handleTemplate }) {
                     name="informe"
                     id="informe"
                     required
+                    onFocus={handleFocus}
                     defaultValue={name === "En blanco" ? "" : conclusions}
                 ></textarea>
                 <div className="buttons">

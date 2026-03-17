@@ -2,29 +2,32 @@
 // TODO Mobile compatibility.
 // TODO The template component need to show the company name and the products evaluated.
 //   Use localStorage for that.
-// TODO No blank fields.
-// TODO Max size in textarea.
 import { useState } from "react";
 
 import Header from "./Header";
 import MainForm from "./MainForm";
 import Templates from "./Templates";
+import Company from "./Company";
 
 function App() {
     const [templateSelected, setTemplateSelected] = useState("");
+    const [companyName, setCompanyName] = useState("");
 
     return (
         <>
             <Header />
-            {!templateSelected ? (
+            <Company companyName={companyName} handleName={setCompanyName} />
+            {!templateSelected && companyName ? (
                 <Templates handleTemplate={setTemplateSelected} />
-            ) : (
+            ) : companyName ? (
                 <article className="form-container">
                     <MainForm
                         template={templateSelected}
                         handleTemplate={setTemplateSelected}
                     />
                 </article>
+            ) : (
+                ""
             )}
         </>
     );
