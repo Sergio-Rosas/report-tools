@@ -16,7 +16,7 @@ function App() {
     return (
         <>
             <Header />
-            <Company companyName={companyName} handleName={setCompanyName} />
+            {!templateSelected && <Company handleName={setCompanyName} />}
             {!templateSelected && companyName ? (
                 <Templates handleTemplate={setTemplateSelected} />
             ) : companyName ? (

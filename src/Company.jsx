@@ -1,13 +1,36 @@
-import { useState } from "react";
-export default function Company({ companyName, handleName }) {
+import { useState, useEffect, useRef } from "react";
+export default function Company({ handleName }) {
     const [name, setName] = useState("");
+    const [data, setData] = useState({});
+    const currentData = useRef({});
 
     function handleChange(e) {
         setName(e.target.value);
     }
+
+    function handleSubmit() {
+        handleName(name);
+        setData((prev) => ({ ...prev, name: name }));
+    }
+
+    useEffect(() => {
+        currentData.current = JSON.parse(localStorage.getItem("companyData"));
+        if (currentData.current) {
+            handleName(currentData.current.name);
+            setData(() => currentData.current);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem(
+            "companyData",
+            JSON.stringify({ ...currentData.current, ...data }),
+        );
+    }, [data]);
+
     return (
         <div className="form-container">
-            {!companyName ? (
+            {!data.name ? (
                 <div className="form form-container">
                     <label className="gap-space">
                         Nombre de la empresa:
@@ -19,14 +42,14 @@ export default function Company({ companyName, handleName }) {
                     </label>
                     <button
                         className="button button--save"
-                        onClick={() => handleName(name)}
+                        onClick={handleSubmit}
                     >
                         Confirmar
                     </button>
                 </div>
             ) : (
                 <div className="form form-container">
-                    <h2 className="title title--template">{name}</h2>
+                    <h2 className="title title--template">{data.name}</h2>
                 </div>
             )}
         </div>

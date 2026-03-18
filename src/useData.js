@@ -8,5 +8,7 @@ export function useData({ data }) {
             "companyData",
             JSON.stringify({ ...currentData, ...data }),
         );
-    }, []);
+    }, [data]);
+
+    return true;
 }
