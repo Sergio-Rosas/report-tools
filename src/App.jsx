@@ -8,10 +8,12 @@ import Header from "./Header";
 import MainForm from "./MainForm";
 import Templates from "./Templates";
 import Company from "./Company";
+import Report from "./Report";
 
 function App() {
     const [templateSelected, setTemplateSelected] = useState("");
     const [companyName, setCompanyName] = useState("");
+    const [reportData, setReportData] = useState([]);
 
     return (
         <>
@@ -24,11 +26,13 @@ function App() {
                     <MainForm
                         template={templateSelected}
                         handleTemplate={setTemplateSelected}
+                        handleReport={setReportData}
                     />
                 </article>
             ) : (
                 ""
             )}
+            <Report reportData={reportData} />
         </>
     );
 }

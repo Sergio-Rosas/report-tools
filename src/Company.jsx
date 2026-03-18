@@ -10,14 +10,20 @@ export default function Company({ handleName }) {
 
     function handleSubmit() {
         handleName(name);
-        setData((prev) => ({ ...prev, name: name }));
+        setData((prev) => ({
+            ...prev,
+            nombre: name,
+            productos: [],
+        }));
     }
 
     useEffect(() => {
         currentData.current = JSON.parse(localStorage.getItem("companyData"));
         if (currentData.current) {
-            handleName(currentData.current.name);
-            setData(() => currentData.current);
+            handleName(currentData.current.nombre);
+            setData(() => ({
+                ...currentData.current,
+            }));
         }
     }, []);
 
@@ -30,7 +36,7 @@ export default function Company({ handleName }) {
 
     return (
         <div className="form-container">
-            {!data.name ? (
+            {!data.nombre ? (
                 <div className="form form-container">
                     <label className="gap-space">
                         Nombre de la empresa:
@@ -49,7 +55,7 @@ export default function Company({ handleName }) {
                 </div>
             ) : (
                 <div className="form form-container">
-                    <h2 className="title title--template">{data.name}</h2>
+                    <h2 className="title title--template">{data.nombre}</h2>
                 </div>
             )}
         </div>

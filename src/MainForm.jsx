@@ -1,24 +1,49 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
 
 import dataArr from "./data";
 
-export default function MainForm({ template, handleTemplate }) {
+export default function MainForm({ template, handleTemplate, handleReport }) {
     const defaultValue = true;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
+    const [reportData, setReportData] = useState({});
     const statusType = useRef(false);
 
     function statusPass(e) {
         statusType.current = e.target.value === "true";
     }
 
+    function reportCreation(form) {
+        const keys = [
+            "referencia",
+            "lote",
+            "serie",
+            "fecha-fabricacion",
+            "servicio",
+            "fecha-inspeccion",
+        ];
+
+        const reportInformation = Object.entries(Object.fromEntries(form))
+            .filter((pair) => keys.includes(pair.at(0)))
+            .reduce((prev, pair) => {
+                return {
+                    ...prev,
+                    [pair.at(0)]: pair.at(1).toUpperCase(),
+                };
+            }, {});
+
+        reportInformation.id = `${reportInformation.referencia}${reportInformation.lote}${reportInformation.serie}`;
+        return reportInformation;
+    }
+
     async function save(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
+        setReportData(reportCreation(formData));
         await pdfUpdate(Object.fromEntries(formData), statusType.current);
     }
 
@@ -40,6 +65,26 @@ export default function MainForm({ template, handleTemplate }) {
     useEffect(() => {
         window.addEventListener("beforeunload", preventRefresh);
     }, []);
+
+    useEffect(() => {
+        const currentData = JSON.parse(localStorage.getItem("companyData"));
+
+        const products = [...currentData.productos, reportData];
+        const cleanedProducts = Array.from(
+            new Set(products.map((product) => product.id)),
+        ).map((id) => products.find((prod) => prod.id === id));
+
+        handleReport(cleanedProducts);
+
+        Object.keys(reportData).length > 1 &&
+            localStorage.setItem(
+                "companyData",
+                JSON.stringify({
+                    ...currentData,
+                    productos: cleanedProducts,
+                }),
+            );
+    }, [reportData]);
 
     return (
         <>
@@ -90,7 +135,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="empresa"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                         defaultValue={defaultValue ? "Empresa Temporal" : ""}
                     />
 
@@ -104,7 +149,7 @@ export default function MainForm({ template, handleTemplate }) {
                         min="2016-01-01"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                         defaultValue={defaultValue ? "2020-11-02" : ""}
                     />
 
@@ -115,7 +160,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="distribuidor"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                         value={name === "En blanco" ? "" : distributor}
                     />
 
@@ -127,7 +172,7 @@ export default function MainForm({ template, handleTemplate }) {
                         defaultValue={reference}
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                     />
 
                     <label htmlFor="fecha-inspeccion">
@@ -140,7 +185,7 @@ export default function MainForm({ template, handleTemplate }) {
                         min="2026-01-01"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                         defaultValue={
                             defaultValue
                                 ? new Date().toISOString().split("T")[0]
@@ -155,7 +200,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="lote"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                         defaultValue={defaultValue ? "200T89756" : ""}
                     />
 
@@ -167,7 +212,7 @@ export default function MainForm({ template, handleTemplate }) {
                         defaultValue={name === "En blanco" ? "" : name}
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                     />
 
                     <label htmlFor="serie">Serie:</label>
@@ -177,7 +222,7 @@ export default function MainForm({ template, handleTemplate }) {
                         id="serie"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.+[^\s]$"
+                        pattern="^[^\s]+.*[^\s]$"
                         defaultValue={defaultValue ? "7898852" : ""}
                     />
                 </div>
