@@ -13,7 +13,6 @@ import Report from "./Report";
 function App() {
     const [templateSelected, setTemplateSelected] = useState("");
     const [companyName, setCompanyName] = useState("");
-    const [reportData, setReportData] = useState([]);
 
     return (
         <>
@@ -26,13 +25,15 @@ function App() {
                     <MainForm
                         template={templateSelected}
                         handleTemplate={setTemplateSelected}
-                        handleReport={setReportData}
+                        companyName={companyName}
                     />
                 </article>
             ) : (
                 ""
             )}
-            <Report reportData={reportData} />
+            <article className="form-container">
+                {!templateSelected && <Report />}
+            </article>
         </>
     );
 }

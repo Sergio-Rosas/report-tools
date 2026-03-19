@@ -5,7 +5,7 @@ import Table from "./Table";
 
 import dataArr from "./data";
 
-export default function MainForm({ template, handleTemplate, handleReport }) {
+export default function MainForm({ companyName, template, handleTemplate }) {
     const defaultValue = true;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
@@ -74,8 +74,6 @@ export default function MainForm({ template, handleTemplate, handleReport }) {
             new Set(products.map((product) => product.id)),
         ).map((id) => products.find((prod) => prod.id === id));
 
-        handleReport(cleanedProducts);
-
         Object.keys(reportData).length > 1 &&
             localStorage.setItem(
                 "companyData",
@@ -136,7 +134,7 @@ export default function MainForm({ template, handleTemplate, handleReport }) {
                         onFocus={handleFocus}
                         required
                         pattern="^[^\s]+.*[^\s]$"
-                        defaultValue={defaultValue ? "Empresa Temporal" : ""}
+                        defaultValue={companyName}
                     />
 
                     <label htmlFor="fecha-fabricacion">

@@ -304,3 +304,58 @@ textarea {
     display: flex;
     column-gap: 10px;
 }
+
+table {
+    border: 2px solid var(--primary-color);
+    border-collapse: collapse;
+    margin-block-end: 10px;
+}
+
+td,
+th {
+    padding: 7px 10px;
+    text-align: center;
+    max-inline-size: 130px;
+}
+
+th {
+    font-size: 1rem;
+}
+
+td {
+    font-size: 0.8rem;
+}
+
+caption {
+    text-align: start;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-block-end: 5px;
+}
+
+.table__image-input {
+    max-inline-size: 300px;
+}
+
+input[type="file"]::file-selector-button {
+    text-transform: uppercase;
+    font-family: "Noto Sans", sans-serif;
+    inline-size: fit-content;
+    padding: 4px 6px;
+    font-weight: 700;
+    border: none;
+    color: white;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: filter 150ms ease-in;
+    background-color: var(--contrast-color);
+}
+
+input[type="file"]::file-selector-button:hover {
+    filter: brightness(0.9);
+}
+
+input[type="file"]::file-selector-button:active {
+    filter: brightness(1.2);
+}
