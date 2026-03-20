@@ -38,65 +38,72 @@ export default function Report({ uploadEnabled, setUploadEnabled }) {
 
     return (
         <form action={reportSubmit}>
-            <table>
-                <caption>Productos Evaluados:</caption>
-                <thead>
-                    <tr>
-                        <th>Referencia</th>
-                        <th>Lote</th>
-                        <th>Serial</th>
-                        <th>Fecha de Fabricación</th>
-                        <th>Concepto</th>
-                        <th>Imágenes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {report.map((row, index) => (
-                        <tr
-                            className={
-                                index % 2 === 0 && `table__row--even-background`
-                            }
-                            key={row.id}
+            {report.length > 0 && (
+                <div>
+                    <table>
+                        <caption>Productos Evaluados:</caption>
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Lote</th>
+                                <th>Serial</th>
+                                <th>Fecha de Fabricación</th>
+                                <th>Concepto</th>
+                                <th>Imágenes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {report.map((row, index) => (
+                                <tr
+                                    className={
+                                        index % 2 === 0 &&
+                                        `table__row--even-background`
+                                    }
+                                    key={row.id}
+                                >
+                                    <td>{row.referencia}</td>
+                                    <td>{row.lote}</td>
+                                    <td>{row.serie}</td>
+                                    <td>{`${monthConverter[new Date(row["fecha-fabricacion"]).getMonth() + 1]}-${new Date(row["fecha-fabricacion"]).getFullYear()}`}</td>
+                                    <td>{row.servicio}</td>
+                                    <td className="table__image-input">
+                                        <label>
+                                            <input
+                                                className={
+                                                    uploadEnabled
+                                                        ? ""
+                                                        : "disabled"
+                                                }
+                                                type="file"
+                                                id={`images-upload-${index}`}
+                                                accept="image/png, image/jpeg, image/jpg"
+                                                required
+                                                multiple
+                                                disabled={!uploadEnabled}
+                                            />
+                                        </label>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div className="buttons">
+                        <button
+                            className={`button button--save ${uploadEnabled ? "button--disabled" : ""}`}
+                            onClick={uploadAlert}
+                            disabled={uploadEnabled}
                         >
-                            <td>{row.referencia}</td>
-                            <td>{row.lote}</td>
-                            <td>{row.serie}</td>
-                            <td>{`${monthConverter[new Date(row["fecha-fabricacion"]).getDate()]}-${new Date(row["fecha-fabricacion"]).getFullYear()}`}</td>
-                            <td>{row.servicio}</td>
-                            <td className="table__image-input">
-                                <label>
-                                    <input
-                                        className={
-                                            uploadEnabled ? "" : "disabled"
-                                        }
-                                        type="file"
-                                        id={`images-upload-${index}`}
-                                        accept="image/png, image/jpeg, image/jpg"
-                                        required
-                                        multiple
-                                        disabled={!uploadEnabled}
-                                    />
-                                </label>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="buttons">
-                <button
-                    className={`button button--save ${uploadEnabled ? "button--disabled" : ""}`}
-                    onClick={uploadAlert}
-                    disabled={uploadEnabled}
-                >
-                    Subir imágenes
-                </button>
-                <button
-                    className={`button button--save ${!uploadEnabled ? "button--disabled" : ""}`}
-                    disabled={!uploadEnabled}
-                >
-                    Generar reporte
-                </button>
-            </div>
+                            Subir imágenes
+                        </button>
+                        <button
+                            className={`button button--save ${!uploadEnabled ? "button--disabled" : ""}`}
+                            disabled={!uploadEnabled}
+                        >
+                            Generar reporte
+                        </button>
+                    </div>
+                </div>
+            )}
         </form>
     );
 }

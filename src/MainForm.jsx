@@ -6,7 +6,7 @@ import Table from "./Table";
 import dataArr from "./data";
 
 export default function MainForm({ companyName, template, handleTemplate }) {
-    const defaultValue = true;
+    const defaultValue = false;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
@@ -133,7 +133,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         id="empresa"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                         defaultValue={companyName}
                     />
 
@@ -147,7 +147,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         min="2016-01-01"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                         defaultValue={defaultValue ? "2020-11-02" : ""}
                     />
 
@@ -158,7 +158,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         id="distribuidor"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                         value={name === "En blanco" ? "" : distributor}
                     />
 
@@ -170,7 +170,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         defaultValue={reference}
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                     />
 
                     <label htmlFor="fecha-inspeccion">
@@ -183,7 +183,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         min="2026-01-01"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                         defaultValue={
                             defaultValue
                                 ? new Date().toISOString().split("T")[0]
@@ -198,7 +198,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         id="lote"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                         defaultValue={defaultValue ? "200T89756" : ""}
                     />
 
@@ -210,7 +210,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         defaultValue={name === "En blanco" ? "" : name}
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                     />
 
                     <label htmlFor="serie">Serie:</label>
@@ -220,7 +220,7 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         id="serie"
                         onFocus={handleFocus}
                         required
-                        pattern="^[^\s]+.*[^\s]$"
+                        pattern="^[^\s]*.*[^\s]$"
                         defaultValue={defaultValue ? "7898852" : ""}
                     />
                 </div>
@@ -272,8 +272,8 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         <input
                             className="radio-square"
                             type="radio"
-                            value="retirar"
-                            id="retirar"
+                            value="no continua"
+                            id="no continue"
                             name="servicio"
                             required
                         />

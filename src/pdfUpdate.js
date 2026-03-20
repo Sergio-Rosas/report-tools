@@ -92,7 +92,7 @@ async function pdfUpdate(form, type = false) {
     ];
     const pdfUrl = await fetch("/template.pdf");
     const pdfBytes = await pdfUrl.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(pdfBytes, {ignoreEncryption: true});
+    const pdfDoc = await PDFDocument.load(pdfBytes, { ignoreEncryption: true });
     const pdfForm = pdfDoc.getForm();
 
     // Filling field by field.
@@ -112,7 +112,7 @@ async function pdfUpdate(form, type = false) {
     pdfForm
         .getTextField("untitled196")
         .setText(
-            `${monthConverter[fabricationDate.getMonth()]} DE ${fabricationDate.getFullYear()}`,
+            `${monthConverter[fabricationDate.getMonth() + 1]} DE ${fabricationDate.getFullYear()}`,
         );
     pdfForm
         .getTextField("untitled193")
@@ -122,7 +122,7 @@ async function pdfUpdate(form, type = false) {
     pdfForm
         .getTextField("untitled194")
         .setText(
-            `${inspectionDate.getDate()} DE ${monthConverter[inspectionDate.getMonth()]} DE ${inspectionDate.getFullYear()}`,
+            `${inspectionDate.getDate()} DE ${monthConverter[inspectionDate.getMonth() + 1]} DE ${inspectionDate.getFullYear()}`,
         );
     pdfForm.getTextField("untitled198").setText(form.lote.toUpperCase());
     pdfForm.getTextField("untitled195").setText(form.producto.toUpperCase());
@@ -192,7 +192,7 @@ async function pdfUpdate(form, type = false) {
 
     pdfDownloader(
         modifiedDoc,
-        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[inspectionDate.getMonth()]).slice(0, 3)}${String(inspectionDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
+        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[inspectionDate.getMonth() + 1]).slice(0, 3)}${String(inspectionDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
     );
 }
 
