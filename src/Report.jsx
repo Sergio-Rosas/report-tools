@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Report() {
+export default function Report({ uploadEnabled, setUploadEnabled }) {
     const monthConverter = {
         0: "ENERO",
         1: "FEBRERO",
@@ -17,16 +17,27 @@ export default function Report() {
     };
 
     const [report, setReport] = useState([]);
-    const [uploadVisibility, setUploadVisibility] = useState(false);
+
+    function uploadAlert() {
+        const confirmed = confirm(
+            "Si empieza con la subida de imágenes no podrá seguir añadiendo productos al reporte.\n¿Desea continuar?",
+        );
+        if (confirmed) {
+            setUploadEnabled(!uploadEnabled);
+        }
+    }
+
+    function reportSubmit(formData) {
+        console.log(formData.get("images-upload-0"));
+    }
 
     useEffect(() => {
         const companyData = JSON.parse(localStorage.getItem("companyData"));
-        console.log(companyData);
         setReport(companyData.productos);
     }, []);
 
     return (
-        <section>
+        <form action={reportSubmit}>
             <table>
                 <caption>Productos Evaluados:</caption>
                 <thead>
@@ -36,7 +47,7 @@ export default function Report() {
                         <th>Serial</th>
                         <th>Fecha de Fabricación</th>
                         <th>Concepto</th>
-                        {uploadVisibility && <th>Imágenes</th>}
+                        <th>Imágenes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,31 +63,40 @@ export default function Report() {
                             <td>{row.serie}</td>
                             <td>{`${monthConverter[new Date(row["fecha-fabricacion"]).getDate()]}-${new Date(row["fecha-fabricacion"]).getFullYear()}`}</td>
                             <td>{row.servicio}</td>
-                            {uploadVisibility && (
-                                <td class="table__image-input">
-                                    <label>
-                                        <input
-                                            type="file"
-                                            id="images-upload"
-                                            accept="image/png, image/jpeg, image/jpg"
-                                            multiple
-                                        />
-                                    </label>
-                                </td>
-                            )}
+                            <td className="table__image-input">
+                                <label>
+                                    <input
+                                        className={
+                                            uploadEnabled ? "" : "disabled"
+                                        }
+                                        type="file"
+                                        id={`images-upload-${index}`}
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        required
+                                        multiple
+                                        disabled={!uploadEnabled}
+                                    />
+                                </label>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
             <div className="buttons">
                 <button
-                    className="button button--save"
-                    onClick={() => setUploadVisibility(!uploadVisibility)}
+                    className={`button button--save ${uploadEnabled ? "button--disabled" : ""}`}
+                    onClick={uploadAlert}
+                    disabled={uploadEnabled}
                 >
                     Subir imágenes
                 </button>
-                <button className="button button--save">Generar reporte</button>
+                <button
+                    className={`button button--save ${!uploadEnabled ? "button--disabled" : ""}`}
+                    disabled={!uploadEnabled}
+                >
+                    Generar reporte
+                </button>
             </div>
-        </section>
+        </form>
     );
 }

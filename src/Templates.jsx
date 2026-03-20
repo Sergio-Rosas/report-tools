@@ -1,5 +1,5 @@
 import { useRef } from "react";
-export default function Templates({ handleTemplate }) {
+export default function Templates({ handleTemplate, handleEnabled }) {
     const selectedTemplate = useRef("");
 
     function processTemplate() {
@@ -45,7 +45,12 @@ export default function Templates({ handleTemplate }) {
                     <option value="Polea">Polea</option>
                 </select>
                 <div className="buttons">
-                    <button className="button button--save">Acceder</button>
+                    <button
+                        className={`button button--save ${handleEnabled ? "button--disabled" : ""}`}
+                        disabled={handleEnabled}
+                    >
+                        Acceder
+                    </button>
                 </div>
             </form>
         </div>

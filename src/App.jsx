@@ -13,13 +13,17 @@ import Report from "./Report";
 function App() {
     const [templateSelected, setTemplateSelected] = useState("");
     const [companyName, setCompanyName] = useState("");
+    const [enabled, setEnabled] = useState(false);
 
     return (
         <>
             <Header />
             {!templateSelected && <Company handleName={setCompanyName} />}
             {!templateSelected && companyName ? (
-                <Templates handleTemplate={setTemplateSelected} />
+                <Templates
+                    handleTemplate={setTemplateSelected}
+                    handleEnabled={enabled}
+                />
             ) : companyName ? (
                 <article className="form-container">
                     <MainForm
@@ -32,7 +36,12 @@ function App() {
                 ""
             )}
             <article className="form-container">
-                {!templateSelected && <Report />}
+                {!templateSelected && companyName && (
+                    <Report
+                        uploadEnabled={enabled}
+                        setUploadEnabled={setEnabled}
+                    />
+                )}
             </article>
         </>
     );
