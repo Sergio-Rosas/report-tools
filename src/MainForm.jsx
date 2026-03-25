@@ -5,7 +5,12 @@ import Table from "./Table";
 
 import dataArr from "./data";
 
-export default function MainForm({ companyName, template, handleTemplate }) {
+export default function MainForm({
+    companyName,
+    template,
+    handleTemplate,
+    inspectionDate,
+}) {
     const defaultValue = false;
     const data = dataArr.filter((data) => data.name === template);
     const { conditions, name, reference, conclusions, distributor } =
@@ -24,7 +29,6 @@ export default function MainForm({ companyName, template, handleTemplate }) {
             "serie",
             "fecha-fabricacion",
             "servicio",
-            "fecha-inspeccion",
         ];
 
         const reportInformation = Object.entries(Object.fromEntries(form))
@@ -185,9 +189,9 @@ export default function MainForm({ companyName, template, handleTemplate }) {
                         required
                         pattern="^[^\s]*.*[^\s]$"
                         defaultValue={
-                            defaultValue
-                                ? new Date().toISOString().split("T")[0]
-                                : ""
+                            inspectionDate
+                            //    ? new Date().toISOString().split("T")[0]
+                            //   : ""
                         }
                     />
 

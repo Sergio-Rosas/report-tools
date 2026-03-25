@@ -192,7 +192,7 @@ async function pdfUpdate(form, type = false) {
 
     pdfDownloader(
         modifiedDoc,
-        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[inspectionDate.getMonth() + 1]).slice(0, 3)}${String(inspectionDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
+        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[fabricationDate.getMonth() + 1]).slice(0, 3)}${String(fabricationDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
     );
 }
 

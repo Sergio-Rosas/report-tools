@@ -1,18 +1,25 @@
 import { useState, useEffect, useRef } from "react";
-export default function Company({ handleName }) {
+export default function Company({ handleName, handleDate }) {
     const [name, setName] = useState("");
+    const [inspectionDate, setInspectionDate] = useState("");
     const [data, setData] = useState({});
     const currentData = useRef({});
 
-    function handleChange(e) {
+    function handleNameChange(e) {
         setName(e.target.value);
+    }
+
+    function handleDateChange(e) {
+        setInspectionDate(e.target.value);
     }
 
     function handleSubmit() {
         handleName(name);
+        handleDate(inspectionDate);
         setData((prev) => ({
             ...prev,
             nombre: name,
+            "fecha-inspeccion": inspectionDate,
             productos: [],
         }));
     }
@@ -37,22 +44,31 @@ export default function Company({ handleName }) {
     return (
         <div className="form-container">
             {!data.nombre ? (
-                <div className="form form-container">
-                    <label className="gap-space">
-                        Nombre de la empresa:
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={handleChange}
-                        />
-                    </label>
-                    <button
-                        className="button button--save"
-                        onClick={handleSubmit}
-                    >
-                        Confirmar
-                    </button>
-                </div>
+                <form action={handleSubmit}>
+                    <div className="form form-container">
+                        <label className="gap-space">
+                            Nombre de la empresa:
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={handleNameChange}
+                                required
+                            />
+                        </label>
+                        <label className="gap-space">
+                            Fecha de la revisión
+                            <input
+                                type="date"
+                                value={inspectionDate}
+                                onChange={handleDateChange}
+                                required
+                            />
+                        </label>
+                        <button className="button button--save">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
             ) : (
                 <div className="form form-container">
                     <h2 className="title title--template">{data.nombre}</h2>
