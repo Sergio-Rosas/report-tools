@@ -1,21 +1,11 @@
 import { useState, useEffect } from "react";
+import { monthConverter } from "./supportFunctions";
 
-export default function Report({ uploadEnabled, setUploadEnabled }) {
-    const monthConverter = {
-        0: "ENERO",
-        1: "FEBRERO",
-        2: "MARZO",
-        3: "ABRIL",
-        4: "MAYO",
-        5: "JUNIO",
-        6: "JULIO",
-        7: "AGOSTO",
-        8: "SEPTIEMBRE",
-        9: "OCTUBRE",
-        10: "NOVIEMBRE",
-        11: "DICIEMBRE",
-    };
-
+export default function Report({
+    uploadEnabled,
+    setUploadEnabled,
+    handleImages,
+}) {
     const [report, setReport] = useState([]);
 
     function uploadAlert() {
@@ -27,8 +17,17 @@ export default function Report({ uploadEnabled, setUploadEnabled }) {
         }
     }
 
-    function reportSubmit(formData) {
-        console.log(formData.get("images-upload-0"));
+    function reportSubmit(e) {
+        //e.preventDefault();
+        const formData = new FormData(e.target);
+        console.log(formData);
+    }
+
+    function handleFilesUpload(e) {
+        handleImages((prev) => [
+            ...prev,
+            { waterMark: e.target.id, pictures: Array.from(e.target.files) },
+        ]);
     }
 
     useEffect(() => {
@@ -37,7 +36,7 @@ export default function Report({ uploadEnabled, setUploadEnabled }) {
     }, []);
 
     return (
-        <form action={reportSubmit}>
+        <form onSubmit={reportSubmit} encType="multipart/form-data">
             {report.length > 0 && (
                 <div>
                     <table>
@@ -56,8 +55,9 @@ export default function Report({ uploadEnabled, setUploadEnabled }) {
                             {report.map((row, index) => (
                                 <tr
                                     className={
-                                        index % 2 === 0 &&
-                                        `table__row--even-background`
+                                        index % 2 === 0
+                                            ? `table__row--even-background`
+                                            : ""
                                     }
                                     key={row.id}
                                 >
@@ -75,11 +75,12 @@ export default function Report({ uploadEnabled, setUploadEnabled }) {
                                                         : "disabled"
                                                 }
                                                 type="file"
-                                                id={`images-upload-${index}`}
+                                                id={row.id}
                                                 accept="image/png, image/jpeg, image/jpg"
                                                 required
                                                 multiple
                                                 disabled={!uploadEnabled}
+                                                onChange={handleFilesUpload}
                                             />
                                         </label>
                                     </td>

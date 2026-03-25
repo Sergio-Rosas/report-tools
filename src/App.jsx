@@ -2,6 +2,9 @@
 // TODO Mobile compatibility.
 // TODO I don't know why the company name is kept in the templates but not the inspection date.
 // TODO Offer the option to edit and delete an entry in the report table.
+// TODO A way to update the company name.
+// TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
+// TODO Valide the ID on images being the one to rewrite reuploads.
 import { useState } from "react";
 
 import Header from "./Header";
@@ -9,12 +12,14 @@ import MainForm from "./MainForm";
 import Templates from "./Templates";
 import Company from "./Company";
 import Report from "./Report";
+import ReportTable from "./ReportTable";
 
 function App() {
     const [templateSelected, setTemplateSelected] = useState("");
     const [companyName, setCompanyName] = useState("");
     const [enabled, setEnabled] = useState(false);
     const [inspDate, setInspDate] = useState("");
+    const [imagesData, setImagesData] = useState([]);
 
     return (
         <>
@@ -44,9 +49,11 @@ function App() {
                     <Report
                         uploadEnabled={enabled}
                         setUploadEnabled={setEnabled}
+                        handleImages={setImagesData}
                     />
                 )}
             </article>
+            <ReportTable imagesData={imagesData} />
         </>
     );
 }

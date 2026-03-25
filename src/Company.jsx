@@ -18,7 +18,7 @@ export default function Company({ handleName, handleDate }) {
         handleDate(inspectionDate);
         setData((prev) => ({
             ...prev,
-            nombre: name,
+            nombre: name.toUpperCase(),
             "fecha-inspeccion": inspectionDate,
             productos: [],
         }));

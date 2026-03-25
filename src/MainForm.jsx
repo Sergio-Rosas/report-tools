@@ -4,6 +4,7 @@ import { pdfUpdate } from "./pdfUpdate";
 import Table from "./Table";
 
 import dataArr from "./data";
+import { monthConverter } from "./supportFunctions";
 
 export default function MainForm({
     companyName,
@@ -40,7 +41,7 @@ export default function MainForm({
                 };
             }, {});
 
-        reportInformation.id = `${reportInformation.referencia}${reportInformation.lote}${reportInformation.serie}`;
+        reportInformation.id = `${reportInformation.referencia}-${reportInformation.lote}-${reportInformation.serie}-${monthConverter[new Date(reportInformation["fecha-fabricacion"]).getMonth() + 1].slice(0, 3)}${new Date(reportInformation["fecha-fabricacion"]).getFullYear() % 2000}-${reportInformation.servicio}`;
         return reportInformation;
     }
 
@@ -188,11 +189,7 @@ export default function MainForm({
                         onFocus={handleFocus}
                         required
                         pattern="^[^\s]*.*[^\s]$"
-                        defaultValue={
-                            inspectionDate
-                            //    ? new Date().toISOString().split("T")[0]
-                            //   : ""
-                        }
+                        defaultValue={inspectionDate}
                     />
 
                     <label htmlFor="lote">Lote:</label>
@@ -203,7 +200,7 @@ export default function MainForm({
                         onFocus={handleFocus}
                         required
                         pattern="^[^\s]*.*[^\s]$"
-                        defaultValue={defaultValue ? "200T89756" : ""}
+                        defaultValue={defaultValue ? "25028" : ""}
                     />
 
                     <label htmlFor="producto">Nombre del Producto:</label>
@@ -225,7 +222,7 @@ export default function MainForm({
                         onFocus={handleFocus}
                         required
                         pattern="^[^\s]*.*[^\s]$"
-                        defaultValue={defaultValue ? "7898852" : ""}
+                        defaultValue={defaultValue ? "926" : ""}
                     />
                 </div>
                 <div className="flex-container">
