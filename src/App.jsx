@@ -4,7 +4,6 @@
 // TODO Offer the option to edit and delete an entry in the report table.
 // TODO A way to update the company name.
 // TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
-// TODO Valide the ID on images being the one to rewrite reuploads.
 import { useState } from "react";
 
 import Header from "./Header";
@@ -72,7 +71,7 @@ export default App;
             lote: "25028",
             serie: "1673",
             servicio: "NO CONTINUA",
-            id: "IN8004250281673",
+            id: "IN8004-25028-1673-MAR22-NO CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-03-01",
@@ -80,7 +79,7 @@ export default App;
             lote: "25028",
             serie: "1689",
             servicio: "NO CONTINUA",
-            id: "IN8004250281689",
+            id: "IN8004-25028-1689-MAR22-NO CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-03-01",
@@ -88,7 +87,7 @@ export default App;
             lote: "25028",
             serie: "850",
             servicio: "CONTINUA",
-            id: "IN800425028850",
+            id: "IN8004-25028-850-MAR22-CONTINUA",
         },
         {
             "fecha-fabricacion": "2025-04-01",
@@ -96,7 +95,7 @@ export default App;
             lote: "45344",
             serie: "6",
             servicio: "CONTINUA",
-            id: "IN8009M453446",
+            id: "IN8009M-45344-6-ABR25-CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-07-01",
@@ -104,7 +103,7 @@ export default App;
             lote: "26973",
             serie: "1",
             servicio: "CONTINUA",
-            id: "IN8020C269731",
+            id: "IN8020C-26973-1-JUL22-CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-07-01",
@@ -112,7 +111,7 @@ export default App;
             lote: "27019",
             serie: "2",
             servicio: "CONTINUA",
-            id: "IN8020PR270192",
+            id: "IN8020PR-27019-2-JUL22-CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-02-01",
@@ -120,7 +119,7 @@ export default App;
             lote: "24834",
             serie: "258",
             servicio: "CONTINUA",
-            id: "IN802124834258",
+            id: "IN8021-24834-258-FEB22-CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-02-01",
@@ -128,7 +127,7 @@ export default App;
             lote: "24703",
             serie: "926",
             servicio: "CONTINUA",
-            id: "IN8041R24703926",
+            id: "IN8041R-24703-926-FEB22-CONTINUA",
         },
         {
             "fecha-fabricacion": "2022-02-01",
@@ -136,7 +135,7 @@ export default App;
             lote: "24703",
             serie: "936",
             servicio: "CONTINUA",
-            id: "IN8041R24703936",
+            id: "IN8041R-24703-936-FEB22-CONTINUA",
         },
         {
             "fecha-fabricacion": "2023-10-01",
@@ -144,7 +143,7 @@ export default App;
             lote: "34747",
             serie: "201",
             servicio: "CONTINUA",
-            id: "IN8042R34747201",
+            id: "IN8042R-34747-201-OCT23-CONTINUA",
         },
         {
             "fecha-fabricacion": "2023-10-01",
@@ -152,7 +151,7 @@ export default App;
             lote: "34619",
             serie: "2",
             servicio: "CONTINUA",
-            id: "IN8042RD346192",
+            id: "IN8042RD-34619-2-OCT23-CONTINUA",
         },
     ],
 };

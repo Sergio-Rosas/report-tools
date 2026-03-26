@@ -13,4 +13,10 @@ const monthConverter = {
     11: "DICIEMBRE",
 };
 
-export { monthConverter };
+function removeDuplicates(objectsArray, prop) {
+    return Array.from(new Set(objectsArray.map((obj) => obj[prop]))).map(
+        (selector) => objectsArray.findLast((item) => item[prop] === selector),
+    );
+}
+
+export { monthConverter, removeDuplicates };

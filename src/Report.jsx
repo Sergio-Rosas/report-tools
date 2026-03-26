@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { monthConverter } from "./supportFunctions";
+import { monthConverter, removeDuplicates } from "./supportFunctions";
 
 export default function Report({
     uploadEnabled,
@@ -18,16 +18,20 @@ export default function Report({
     }
 
     function reportSubmit(e) {
-        //e.preventDefault();
-        const formData = new FormData(e.target);
-        console.log(formData);
+        e.preventDefault();
     }
 
     function handleFilesUpload(e) {
-        handleImages((prev) => [
-            ...prev,
-            { waterMark: e.target.id, pictures: Array.from(e.target.files) },
-        ]);
+        handleImages((prev) => {
+            const uncleanedArray = [
+                ...prev,
+                {
+                    waterMark: e.target.id,
+                    pictures: Array.from(e.target.files),
+                },
+            ];
+            return removeDuplicates(uncleanedArray, "waterMark");
+        });
     }
 
     useEffect(() => {
@@ -66,6 +70,7 @@ export default function Report({
                                     <td>{row.serie}</td>
                                     <td>{`${monthConverter[new Date(row["fecha-fabricacion"]).getMonth() + 1]}-${new Date(row["fecha-fabricacion"]).getFullYear()}`}</td>
                                     <td>{row.servicio}</td>
+                                    {/*Include the REQUIRED property*/}
                                     <td className="table__image-input">
                                         <label>
                                             <input
@@ -77,7 +82,6 @@ export default function Report({
                                                 type="file"
                                                 id={row.id}
                                                 accept="image/png, image/jpeg, image/jpg"
-                                                required
                                                 multiple
                                                 disabled={!uploadEnabled}
                                                 onChange={handleFilesUpload}

@@ -4,7 +4,7 @@ import { pdfUpdate } from "./pdfUpdate";
 import Table from "./Table";
 
 import dataArr from "./data";
-import { monthConverter } from "./supportFunctions";
+import { monthConverter, removeDuplicates } from "./supportFunctions";
 
 export default function MainForm({
     companyName,
@@ -75,9 +75,7 @@ export default function MainForm({
         const currentData = JSON.parse(localStorage.getItem("companyData"));
 
         const products = [...currentData.productos, reportData];
-        const cleanedProducts = Array.from(
-            new Set(products.map((product) => product.id)),
-        ).map((id) => products.find((prod) => prod.id === id));
+        const cleanedProducts = removeDuplicates(products, "id");
 
         Object.keys(reportData).length > 1 &&
             localStorage.setItem(
