@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { monthConverter, removeDuplicates } from "./supportFunctions";
 
 export default function Report({
+    tableAlone,
     uploadEnabled,
     setUploadEnabled,
     handleImages,
+    handleView,
 }) {
     const [report, setReport] = useState([]);
 
@@ -19,6 +21,7 @@ export default function Report({
 
     function reportSubmit(e) {
         e.preventDefault();
+        handleView(true);
     }
 
     function handleFilesUpload(e) {
@@ -43,8 +46,8 @@ export default function Report({
         <form onSubmit={reportSubmit} encType="multipart/form-data">
             {report.length > 0 && (
                 <div>
-                    <table>
-                        <caption>Productos Evaluados:</caption>
+                    <table className={tableAlone ? "report-table" : ""}>
+                        {!tableAlone && <caption>Productos Evaluados:</caption>}
                         <thead>
                             <tr>
                                 <th>Referencia</th>
@@ -52,16 +55,18 @@ export default function Report({
                                 <th>Serial</th>
                                 <th>Fecha de Fabricación</th>
                                 <th>Concepto</th>
-                                <th>Imágenes</th>
+                                {!tableAlone && <th>Imágenes</th>}
                             </tr>
                         </thead>
                         <tbody>
                             {report.map((row, index) => (
                                 <tr
                                     className={
-                                        index % 2 === 0
-                                            ? `table__row--even-background`
-                                            : ""
+                                        tableAlone
+                                            ? ""
+                                            : index % 2 === 0
+                                              ? `table__row--even-background`
+                                              : ""
                                     }
                                     key={row.id}
                                 >
@@ -71,42 +76,46 @@ export default function Report({
                                     <td>{`${monthConverter[new Date(row["fecha-fabricacion"]).getMonth() + 1]}-${new Date(row["fecha-fabricacion"]).getFullYear()}`}</td>
                                     <td>{row.servicio}</td>
                                     {/*Include the REQUIRED property*/}
-                                    <td className="table__image-input">
-                                        <label>
-                                            <input
-                                                className={
-                                                    uploadEnabled
-                                                        ? ""
-                                                        : "disabled"
-                                                }
-                                                type="file"
-                                                id={row.id}
-                                                accept="image/png, image/jpeg, image/jpg"
-                                                multiple
-                                                disabled={!uploadEnabled}
-                                                onChange={handleFilesUpload}
-                                            />
-                                        </label>
-                                    </td>
+                                    {!tableAlone && (
+                                        <td className="table__image-input">
+                                            <label>
+                                                <input
+                                                    className={
+                                                        uploadEnabled
+                                                            ? ""
+                                                            : "disabled"
+                                                    }
+                                                    type="file"
+                                                    id={row.id}
+                                                    accept="image/png, image/jpeg, image/jpg"
+                                                    multiple
+                                                    disabled={!uploadEnabled}
+                                                    onChange={handleFilesUpload}
+                                                />
+                                            </label>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <div className="buttons">
-                        <button
-                            className={`button button--save ${uploadEnabled ? "button--disabled" : ""}`}
-                            onClick={uploadAlert}
-                            disabled={uploadEnabled}
-                        >
-                            Subir imágenes
-                        </button>
-                        <button
-                            className={`button button--save ${!uploadEnabled ? "button--disabled" : ""}`}
-                            disabled={!uploadEnabled}
-                        >
-                            Generar reporte
-                        </button>
-                    </div>
+                    {!tableAlone && (
+                        <div className="buttons">
+                            <button
+                                className={`button button--save ${uploadEnabled ? "button--disabled" : ""}`}
+                                onClick={uploadAlert}
+                                disabled={uploadEnabled}
+                            >
+                                Subir imágenes
+                            </button>
+                            <button
+                                className={`button button--save ${!uploadEnabled ? "button--disabled" : ""}`}
+                                disabled={!uploadEnabled}
+                            >
+                                Generar reporte
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
         </form>

@@ -19,40 +19,54 @@ function App() {
     const [enabled, setEnabled] = useState(false);
     const [inspDate, setInspDate] = useState("");
     const [imagesData, setImagesData] = useState([]);
+    const [reportView, setReportView] = useState(false);
 
     return (
         <>
             <Header />
-            {!templateSelected && (
-                <Company handleName={setCompanyName} handleDate={setInspDate} />
+            {!reportView && (
+                <div>
+                    {!templateSelected && (
+                        <Company
+                            handleName={setCompanyName}
+                            handleDate={setInspDate}
+                        />
+                    )}
+                    {!templateSelected && companyName ? (
+                        <Templates
+                            handleTemplate={setTemplateSelected}
+                            handleEnabled={enabled}
+                        />
+                    ) : companyName ? (
+                        <article className="form-container">
+                            <MainForm
+                                template={templateSelected}
+                                handleTemplate={setTemplateSelected}
+                                companyName={companyName}
+                                inspectionDate={inspDate}
+                            />
+                        </article>
+                    ) : (
+                        ""
+                    )}
+                    <article className="form-container">
+                        {!templateSelected && companyName && (
+                            <Report
+                                tableAlone={false}
+                                uploadEnabled={enabled}
+                                setUploadEnabled={setEnabled}
+                                handleImages={setImagesData}
+                                handleView={setReportView}
+                            />
+                        )}
+                    </article>
+                </div>
             )}
-            {!templateSelected && companyName ? (
-                <Templates
-                    handleTemplate={setTemplateSelected}
-                    handleEnabled={enabled}
-                />
-            ) : companyName ? (
-                <article className="form-container">
-                    <MainForm
-                        template={templateSelected}
-                        handleTemplate={setTemplateSelected}
-                        companyName={companyName}
-                        inspectionDate={inspDate}
-                    />
-                </article>
-            ) : (
-                ""
+            {reportView && (
+                <ReportTable imagesData={imagesData}>
+                    <Report tableAlone={true} />
+                </ReportTable>
             )}
-            <article className="form-container">
-                {!templateSelected && companyName && (
-                    <Report
-                        uploadEnabled={enabled}
-                        setUploadEnabled={setEnabled}
-                        handleImages={setImagesData}
-                    />
-                )}
-            </article>
-            <ReportTable imagesData={imagesData} />
         </>
     );
 }

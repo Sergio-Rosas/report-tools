@@ -43,6 +43,7 @@ option:checked {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 textarea,
@@ -319,6 +320,19 @@ table {
     margin-block-end: 10px;
 }
 
+.report-table {
+    inline-size: 680px;
+    border: 2px solid white;
+}
+
+.report-table :is(td, th) {
+    border: 2px solid white;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
 td,
 th {
     padding: 7px 10px;
@@ -375,4 +389,14 @@ input[type="file"].disabled::file-selector-button:active {
     background-color: hsl(0, 0%, 75%);
     filter: brightness(1);
     cursor: not-allowed;
+}
+
+.certification__image {
+    inline-size: 720px;
+    block-size: 1280px;
+    margin: 10px;
+}
+
+.report-container {
+    position: absolute;
 }
