@@ -7,6 +7,7 @@
 :root {
     --primary-color: #ef4722;
     --primary-color--light: hsl(11, 86%, 54%);
+    --primary-color--desaturated: hsl(11, 40%, 40%);
     --contrast-color: #225cf0;
     --page-background: #f4fde7;
 }
@@ -48,6 +49,7 @@ option:checked {
 
 textarea,
 input[type="text"],
+input[type="number"],
 input[type="date"] {
     font-family: "Noto Sans", sans-serif;
     padding-inline: 5px;
@@ -55,10 +57,17 @@ input[type="date"] {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="date"] {
     text-transform: uppercase;
 }
-:is(textarea, input[type="text"], input[type="date"], .table__radio):focus {
+:is(
+    textarea,
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    .table__radio
+):focus {
     outline: 2px solid var(--primary-color);
     border-color: transparent;
 }
@@ -320,6 +329,31 @@ table {
     margin-block-end: 10px;
 }
 
+.report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-title {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    inline-size: 680px;
+    font-weight: 800;
+    -webkit-text-stroke: 0.9px white;
+    position: absolute;
+    inset-block-start: 220px;
+    font-size: 1.5rem;
+    text-align: justify;
+    line-height: 1.05;
+    color: var(--primary-color--desaturated);
+}
+
+.report-title--uppercase {
+    text-transform: uppercase;
+}
+
 .report-table {
     inline-size: 680px;
     border: 2px solid white;
@@ -329,8 +363,10 @@ table {
     border: 2px solid white;
     color: var(--primary-color);
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 800;
     font-size: 1rem;
+    -webkit-text-stroke: 0.4px white;
+    text-shadow: 1px 1px 2px hsl(0, 0%, 20%);
 }
 
 td,

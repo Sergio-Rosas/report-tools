@@ -259,7 +259,7 @@ export default function MainForm({
                         <input
                             className="radio-square"
                             type="radio"
-                            value="continua"
+                            value="continúa"
                             id="continua"
                             name="servicio"
                             defaultChecked={name !== "En blanco" && "true"}
@@ -271,7 +271,7 @@ export default function MainForm({
                         <input
                             className="radio-square"
                             type="radio"
-                            value="no continua"
+                            value="no continúa"
                             id="no continue"
                             name="servicio"
                             required

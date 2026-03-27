@@ -4,6 +4,7 @@
 // TODO Offer the option to edit and delete an entry in the report table.
 // TODO A way to update the company name.
 // TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
+// TODO Better CSS to the report options (opacity, translation, etc).
 import { useState } from "react";
 
 import Header from "./Header";
@@ -63,7 +64,11 @@ function App() {
                 </div>
             )}
             {reportView && (
-                <ReportTable imagesData={imagesData}>
+                <ReportTable
+                    imagesData={imagesData}
+                    inspectionDate={inspDate}
+                    company={companyName}
+                >
                     <Report tableAlone={true} />
                 </ReportTable>
             )}
