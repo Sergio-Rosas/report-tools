@@ -183,38 +183,42 @@ async function pdfUpdate(form, type = false) {
     );
 }
 
-/*
-async function pdfUpdate2() {
+async function pdfCreation() {
     const document = await PDFDocument.create();
-    const timesRomanFont = await document.embedFont(StandardFonts.TimesRoman);
+    const helveticaFont = await document.embedFont(StandardFonts.Helvetica);
+    const helveticaBoldFont = await document.embedFont(
+        StandardFonts.HelveticaBold,
+    );
 
-    const page = document.addPage();
+    const page = document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
     const { width, height } = page.getSize();
-    const fontSize = 30;
-    page.drawText("Creating PDFs in JavaScript is awesome", {
-        x: 50,
-        y: height - 4 * fontSize,
-        size: fontSize,
-        font: timesRomanFont,
-        color: rgb(0, 0.53, 0.71),
-    });
+    const fontSize = 21;
 
-    const imageUrl = await fetch("/signature.png");
+    // Adding the background image.
+    const imageUrl = await fetch("/opening.png");
     const imageBytes = await imageUrl.arrayBuffer();
     const image = await document.embedPng(imageBytes);
-    const jpgDims = image.scale(0.5);
     const pages = document.getPages();
     const firstPage = pages[0];
     firstPage.drawImage(image, {
-        x: 60,
-        y: 50,
-        width: jpgDims.width,
-        height: jpgDims.height,
+        x: 0,
+        y: 0,
+        width: 540,
+        height: 960,
+    });
+
+    page.drawText("INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:", {
+        //x: 50,
+        //y: height - 4 * fontSize,
+        size: fontSize,
+        font: helveticaBoldFont,
+        maxWidth: 300,
+        wordBreaks: [" ", "-" /*, "\n"*/],
+        //color: rgb(0, 0.53, 0.71),
     });
 
     const pdfBytes = await document.save();
-    pdfDownloader(pdfBytes, "test.pdf");
+    pdfDownloader(pdfBytes, "REPORTE.pdf");
 }
-    */
 
-export { pdfUpdate };
+export { pdfUpdate, pdfCreation };

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import InputChange from "./InputChange";
 import { monthConverter } from "./supportFunctions";
+import { pdfCreation } from "./pdfUpdate";
 
 export default function ReportTable({
     children,
@@ -44,6 +45,10 @@ export default function ReportTable({
             return;
         }
         setTableOpacity(Number(e.target.value));
+    }
+
+    async function reportCreation() {
+        await pdfCreation();
     }
 
     return (
@@ -127,7 +132,12 @@ export default function ReportTable({
                     numberValue={tableOpacity}
                     handleChange={tableOpacityChange}
                 />
-                <button className="button button--save">Aceptar</button>
+                <button
+                    className="button button--save"
+                    onClick={reportCreation}
+                >
+                    Aceptar
+                </button>
             </div>
         </div>
     );
