@@ -208,11 +208,11 @@ async function pdfCreation() {
     });
 
     page.drawText("INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:", {
-        //x: 50,
-        //y: height - 4 * fontSize,
+        x: 20,
+        y: 910,
         size: fontSize,
         font: helveticaBoldFont,
-        maxWidth: 300,
+        maxWidth: 520,
         wordBreaks: [" ", "-" /*, "\n"*/],
         //color: rgb(0, 0.53, 0.71),
     });
