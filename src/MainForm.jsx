@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
 
 import dataArr from "./data";
-import { monthConverter, removeDuplicates } from "./supportFunctions";
+import { removeDuplicates, DateFormat } from "./supportFunctions";
 
 export default function MainForm({
     companyName,
@@ -41,7 +41,11 @@ export default function MainForm({
                 };
             }, {});
 
-        reportInformation.id = `${reportInformation.referencia}-${reportInformation.lote}-${reportInformation.serie}-${monthConverter[new Date(reportInformation["fecha-fabricacion"]).getMonth() + 1].slice(0, 3)}${new Date(reportInformation["fecha-fabricacion"]).getFullYear() % 2000}-${reportInformation.servicio}`;
+        const makingDate = new DateFormat(
+            reportInformation["fecha-fabricacion"],
+        );
+
+        reportInformation.id = `${reportInformation.referencia}-${reportInformation.lote}-${reportInformation.serie}-${makingDate.shortMonth()}${makingDate.shortYear()}-${reportInformation.servicio}`;
         return reportInformation;
     }
 
@@ -183,7 +187,7 @@ export default function MainForm({
                         type="date"
                         name="fecha-inspeccion"
                         id="fecha-inspeccion"
-                        min="2026-01-01"
+                        min="2025-01-01"
                         onFocus={handleFocus}
                         required
                         pattern="^[^\s]*.*[^\s]$"

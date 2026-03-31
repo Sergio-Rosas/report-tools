@@ -28,6 +28,7 @@ export default function Company({ handleName, handleDate }) {
         currentData.current = JSON.parse(localStorage.getItem("companyData"));
         if (currentData.current) {
             handleName(currentData.current.nombre);
+            handleDate(currentData.current["fecha-inspeccion"]);
             setData(() => ({
                 ...currentData.current,
             }));

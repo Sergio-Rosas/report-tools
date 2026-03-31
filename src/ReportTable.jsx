@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import InputChange from "./InputChange";
-import { monthConverter } from "./supportFunctions";
+import { monthConverter, DateFormat } from "./supportFunctions";
 import { pdfCreation } from "./pdfUpdate";
 
 export default function ReportTable({
@@ -48,7 +48,7 @@ export default function ReportTable({
     }
 
     async function reportCreation() {
-        await pdfCreation();
+        await pdfCreation(company, new DateFormat(inspectionDate));
     }
 
     return (
@@ -81,7 +81,7 @@ export default function ReportTable({
                 >
                     <h2>
                         Inspección de equipos de la marca INSAFE -{" "}
-                        {`${new Date(inspectionDate).getDate() + 1} DE ${monthConverter[new Date(inspectionDate).getMonth()]} DE ${new Date(inspectionDate).getFullYear()}`}{" "}
+                        {`${new Date(inspectionDate).getDate()} DE ${monthConverter[new Date(inspectionDate).getMonth()]} DE ${new Date(inspectionDate).getFullYear()}`}{" "}
                         a la empresa {company.toUpperCase()}.{" "}
                         <p>
                             Válido hasta{" "}

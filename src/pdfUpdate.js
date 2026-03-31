@@ -1,5 +1,5 @@
 import { PDFDocument, PDFName, PDFBool, StandardFonts, rgb } from "pdf-lib";
-import { monthConverter } from "./supportFunctions";
+import { monthConverter, DateFormat } from "./supportFunctions";
 
 function pdfDownloader(pdf, filename) {
     const blob = new Blob([pdf], {
@@ -95,21 +95,21 @@ async function pdfUpdate(form, type = false) {
             break;
     }
     pdfForm.getTextField("untitled192").setText(form.empresa.toUpperCase());
-    const fabricationDate = new Date(form["fecha-fabricacion"]);
+    const fabricationDate = new DateFormat(form["fecha-fabricacion"]);
     pdfForm
         .getTextField("untitled196")
         .setText(
-            `${monthConverter[fabricationDate.getMonth() + 1]} DE ${fabricationDate.getFullYear()}`,
+            `${fabricationDate.fullMonth()} DE ${fabricationDate.fullYear()}`,
         );
     pdfForm
         .getTextField("untitled193")
         .setText(form.distribuidor.toUpperCase());
     pdfForm.getTextField("untitled197").setText(form.referencia.toUpperCase());
-    const inspectionDate = new Date(form["fecha-inspeccion"]);
+    const inspectionDate = new DateFormat(form["fecha-inspeccion"]);
     pdfForm
         .getTextField("untitled194")
         .setText(
-            `${inspectionDate.getDate()} DE ${monthConverter[inspectionDate.getMonth() + 1]} DE ${inspectionDate.getFullYear()}`,
+            `${inspectionDate.day()} DE ${inspectionDate.fullMonth()} DE ${inspectionDate.fullYear()}`,
         );
     pdfForm.getTextField("untitled198").setText(form.lote.toUpperCase());
     pdfForm.getTextField("untitled195").setText(form.producto.toUpperCase());
@@ -179,11 +179,11 @@ async function pdfUpdate(form, type = false) {
 
     pdfDownloader(
         modifiedDoc,
-        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${String(monthConverter[fabricationDate.getMonth() + 1]).slice(0, 3)}${String(fabricationDate.getFullYear()).slice(2)}-${form.servicio.toUpperCase()}.pdf`,
+        `${form.referencia.toUpperCase()}-${form.lote.toUpperCase()}-${form.serie.toUpperCase()}-${fabricationDate.shortMonth()}${fabricationDate.shortYear()}-${form.servicio.toUpperCase()}.pdf`,
     );
 }
 
-async function pdfCreation() {
+async function pdfCreation(companyName, inspectionDate) {
     const document = await PDFDocument.create();
     const helveticaFont = await document.embedFont(StandardFonts.Helvetica);
     const helveticaBoldFont = await document.embedFont(
@@ -207,15 +207,18 @@ async function pdfCreation() {
         height: 960,
     });
 
-    page.drawText("INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:", {
-        x: 20,
-        y: 910,
-        size: fontSize,
-        font: helveticaBoldFont,
-        maxWidth: 520,
-        wordBreaks: [" ", "-" /*, "\n"*/],
-        //color: rgb(0, 0.53, 0.71),
-    });
+    page.drawText(
+        `INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:\n${companyName.toUpperCase()}\nREALIZADO EL:\n${inspectionDate.day()} DE ${inspectionDate.fullMonth()} DE ${inspectionDate.fullYear()}`,
+        {
+            x: 20,
+            y: 610,
+            size: fontSize,
+            font: helveticaBoldFont,
+            maxWidth: 520,
+            wordBreaks: [" ", "-" /*, "\n"*/],
+            //color: rgb(0, 0.53, 0.71),
+        },
+    );
 
     const pdfBytes = await document.save();
     pdfDownloader(pdfBytes, "REPORTE.pdf");
