@@ -1,10 +1,10 @@
 // npm run dev
 // TODO Mobile compatibility.
-// TODO I don't know why the company name is kept in the templates but not the inspection date.
 // TODO Offer the option to edit and delete an entry in the report table.
 // TODO A way to update the company name.
 // TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
 // TODO Better CSS to the report options (opacity, translation, etc).
+// TODO Put the required property for the images upload input.
 import { useState } from "react";
 
 import Header from "./Header";

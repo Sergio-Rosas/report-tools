@@ -1,5 +1,5 @@
 import { PDFDocument, PDFName, PDFBool, StandardFonts, rgb } from "pdf-lib";
-import { monthConverter, DateFormat } from "./supportFunctions";
+import { DateFormat } from "./supportFunctions";
 
 function pdfDownloader(pdf, filename) {
     const blob = new Blob([pdf], {

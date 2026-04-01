@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, use } from "react";
+import { useState, useEffect, useRef } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
@@ -156,6 +156,7 @@ export default function MainForm({
                         required
                         pattern="^[^\s]*.*[^\s]$"
                         defaultValue={defaultValue ? "2020-11-02" : ""}
+                        placeholder="DD-MM-YYYY"
                     />
 
                     <label htmlFor="distribuidor">Distribuidor:</label>
@@ -192,6 +193,7 @@ export default function MainForm({
                         required
                         pattern="^[^\s]*.*[^\s]$"
                         defaultValue={inspectionDate}
+                        placeholder="DD-MM-YYYY"
                     />
 
                     <label htmlFor="lote">Lote:</label>

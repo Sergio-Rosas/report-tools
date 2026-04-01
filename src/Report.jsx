@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { monthConverter, removeDuplicates } from "./supportFunctions";
+import { removeDuplicates, DateFormat } from "./supportFunctions";
 
 export default function Report({
     tableAlone,
@@ -59,44 +59,53 @@ export default function Report({
                             </tr>
                         </thead>
                         <tbody>
-                            {report.map((row, index) => (
-                                <tr
-                                    className={
-                                        tableAlone
-                                            ? ""
-                                            : index % 2 === 0
-                                              ? `table__row--even-background`
-                                              : ""
-                                    }
-                                    key={row.id}
-                                >
-                                    <td>{row.referencia}</td>
-                                    <td>{row.lote}</td>
-                                    <td>{row.serie}</td>
-                                    <td>{`${monthConverter[new Date(row["fecha-fabricacion"]).getMonth() + 1]}-${new Date(row["fecha-fabricacion"]).getFullYear()}`}</td>
-                                    <td>{row.servicio}</td>
-                                    {/*Include the REQUIRED property*/}
-                                    {!tableAlone && (
-                                        <td className="table__image-input">
-                                            <label>
-                                                <input
-                                                    className={
-                                                        uploadEnabled
-                                                            ? ""
-                                                            : "disabled"
-                                                    }
-                                                    type="file"
-                                                    id={row.id}
-                                                    accept="image/png, image/jpeg, image/jpg"
-                                                    multiple
-                                                    disabled={!uploadEnabled}
-                                                    onChange={handleFilesUpload}
-                                                />
-                                            </label>
-                                        </td>
-                                    )}
-                                </tr>
-                            ))}
+                            {report.map((row, index) => {
+                                const buildDate = new DateFormat(
+                                    row["fecha-fabricacion"],
+                                );
+                                return (
+                                    <tr
+                                        className={
+                                            tableAlone
+                                                ? ""
+                                                : index % 2 === 0
+                                                  ? `table__row--even-background`
+                                                  : ""
+                                        }
+                                        key={row.id}
+                                    >
+                                        <td>{row.referencia}</td>
+                                        <td>{row.lote}</td>
+                                        <td>{row.serie}</td>
+                                        <td>{`${buildDate.fullMonth()}-${buildDate.fullYear()}`}</td>
+                                        <td>{row.servicio}</td>
+                                        {/*Include the REQUIRED property*/}
+                                        {!tableAlone && (
+                                            <td className="table__image-input">
+                                                <label>
+                                                    <input
+                                                        className={
+                                                            uploadEnabled
+                                                                ? ""
+                                                                : "disabled"
+                                                        }
+                                                        type="file"
+                                                        id={row.id}
+                                                        accept="image/png, image/jpeg, image/jpg"
+                                                        multiple
+                                                        disabled={
+                                                            !uploadEnabled
+                                                        }
+                                                        onChange={
+                                                            handleFilesUpload
+                                                        }
+                                                    />
+                                                </label>
+                                            </td>
+                                        )}
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                     {!tableAlone && (

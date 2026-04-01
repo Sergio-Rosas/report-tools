@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import InputChange from "./InputChange";
-import { monthConverter, DateFormat } from "./supportFunctions";
+import { DateFormat } from "./supportFunctions";
 import { pdfCreation } from "./pdfUpdate";
 
 export default function ReportTable({
@@ -10,6 +10,7 @@ export default function ReportTable({
     company,
 }) {
     const temp = false;
+    const inspDate = new DateFormat(inspectionDate);
     const [offset, setOffset] = useState(515);
     const [imageOpacity, setImageOpacity] = useState(100);
     const [tableOpacity, setTableOpacity] = useState(60);
@@ -81,11 +82,11 @@ export default function ReportTable({
                 >
                     <h2>
                         Inspección de equipos de la marca INSAFE -{" "}
-                        {`${new Date(inspectionDate).getDate()} DE ${monthConverter[new Date(inspectionDate).getMonth()]} DE ${new Date(inspectionDate).getFullYear()}`}{" "}
+                        {`${inspDate.day()} DE ${inspDate.fullMonth()} DE ${inspDate.fullYear()}`}{" "}
                         a la empresa {company.toUpperCase()}.{" "}
                         <p>
                             Válido hasta{" "}
-                            {`${monthConverter[new Date(inspectionDate).getMonth()]} DE ${new Date(inspectionDate).getFullYear() + 1}.`}
+                            {`${inspDate.fullMonth()} DE ${Number(inspDate.fullYear()) + 1}.`}
                         </p>
                     </h2>
                     <h2 className="report-title--uppercase">
