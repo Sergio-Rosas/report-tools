@@ -192,7 +192,7 @@ async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
     page.drawImage(image, coordinates);
 }
 
-async function addText(page, text, textDisplayInfo, centered = false) {
+    async function pdfAddingText(page, text, textDisplayInfo, centered = false) {
     if (centered) {
         const lineWidth = textDisplayInfo.font.widthOfTextAtSize(
             text,
@@ -202,19 +202,19 @@ async function addText(page, text, textDisplayInfo, centered = false) {
     }
 
     page.drawText(
-        //`INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:\n${companyName.toUpperCase()}\nREALIZADO EL:\n${inspectionDate.day()} DE ${inspectionDate.fullMonth()} DE ${inspectionDate.fullYear()}`,
         text,
         textDisplayInfo,
     );
 }
 
-async function pdfCreation(companyName, inspectionDate) {
+async function pdfCreation(companyName, inspectionDate, tablePic) {
     const document = await PDFDocument.create();
     //const helveticaFont = await document.embedFont(StandardFonts.Helvetica);
     const helveticaBoldFont = await document.embedFont(
         StandardFonts.HelveticaBold,
     );
 
+    // Page one
     const page = document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
     //const { width, height } = page.getSize();
     const fontSize = 21;
@@ -231,6 +231,7 @@ async function pdfCreation(companyName, inspectionDate) {
             height: 960,
         })
 
+    // Adding text to the first page.
     const textDisplayInfo = {
         x: 20,
         y: 610,
@@ -241,11 +242,10 @@ async function pdfCreation(companyName, inspectionDate) {
         //color: rgb(0, 0.53, 0.71),
     };
 
-    // Adding text to the first page.
     const text = `INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A\nLA EMPRESA:\n${companyName.toUpperCase()}\nREALIZADO EL:\n${inspectionDate.day()} DE ${inspectionDate.fullMonth()} DE ${inspectionDate.fullYear()}`;
 
     text.split("\n").forEach(async (text, index) => {
-        await addText(
+        await pdfAddingText(
             page,
             text,
             {
@@ -257,8 +257,23 @@ async function pdfCreation(companyName, inspectionDate) {
     });
 
     textDisplayInfo.y = 250;
-    await addText(page, "REGISTRO FOTOGRÁFICO", textDisplayInfo, true);
+    await pdfAddingText(page, "REGISTRO FOTOGRÁFICO", textDisplayInfo, true);
 
+    // Adding the second page with the table information.
+    document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
+    await pdfNewImage(
+        document,
+        tablePic,
+        1,
+        {
+            x: 0,
+            y: 0,
+            width: 540,
+            height: 960,
+        })
+
+
+    // Saving the PDF.
     const pdfBytes = await document.save();
     pdfDownloader(pdfBytes, "REPORTE.pdf");
 }

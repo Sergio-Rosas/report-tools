@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { toPng } from "html-to-image";
 import InputChange from "./InputChange";
 import { DateFormat } from "./supportFunctions";
 import { pdfCreation } from "./pdfUpdate";
@@ -15,6 +16,7 @@ export default function ReportTable({
     const [imageOpacity, setImageOpacity] = useState(100);
     const [tableOpacity, setTableOpacity] = useState(60);
     const intervalRef = useRef(null);
+    const tableDomNode = useRef(null);
 
     function verticalOffset(e) {
         if (e.target.name === "up") {
@@ -49,7 +51,8 @@ export default function ReportTable({
     }
 
     async function reportCreation() {
-        await pdfCreation(company, new DateFormat(inspectionDate));
+        const tablePic = await toPng(tableDomNode.current, {width: 720, height: 1280});
+        await pdfCreation(company, new DateFormat(inspectionDate), tablePic);
     }
 
     return (
@@ -67,7 +70,7 @@ export default function ReportTable({
                         </figure>
                     )),
                 )}
-            <div className="form-container">
+            <div className="form-container" ref={tableDomNode}>
                 <img
                     className="certification__image"
                     style={{ opacity: imageOpacity / 100 }}
