@@ -183,6 +183,15 @@ async function pdfUpdate(form, type = false) {
     );
 }
 
+async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
+    const imageUrl = await fetch(imagePath);
+    const imageBytes = await imageUrl.arrayBuffer();
+    const image = await document.embedPng(imageBytes);
+    const pages = document.getPages();
+    const page = pages[pageNumber];
+    page.drawImage(image, coordinates);
+}
+
 async function pdfCreation(companyName, inspectionDate) {
     const document = await PDFDocument.create();
     const helveticaFont = await document.embedFont(StandardFonts.Helvetica);
@@ -191,26 +200,29 @@ async function pdfCreation(companyName, inspectionDate) {
     );
 
     const page = document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
-    const { width, height } = page.getSize();
+    //const { width, height } = page.getSize();
     const fontSize = 21;
+    //const text = `INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:\n${companyName.toUpperCase()}\nREALIZADO EL:\n${inspectionDate.day()} DE ${inspectionDate.fullMonth()} DE ${inspectionDate.fullYear()}`;
+    const text = "Temp"
 
-    // Adding the background image.
-    const imageUrl = await fetch("/opening.png");
-    const imageBytes = await imageUrl.arrayBuffer();
-    const image = await document.embedPng(imageBytes);
-    const pages = document.getPages();
-    const firstPage = pages[0];
-    firstPage.drawImage(image, {
-        x: 0,
-        y: 0,
-        width: 540,
-        height: 960,
-    });
-
-    page.drawText(
-        `INSPECCIÓN DE EQUIPOS INSAFE REALIZADO A LA EMPRESA:\n${companyName.toUpperCase()}\nREALIZADO EL:\n${inspectionDate.day()} DE ${inspectionDate.fullMonth()} DE ${inspectionDate.fullYear()}`,
+    await pdfNewImage(
+        document,
+        "/opening.png",
+        0,
         {
-            x: 20,
+            x: 0,
+            y: 0,
+            width: 540,
+            height: 960,
+        })
+
+    const textWidth = helveticaFont.widthOfTextAtSize(text, fontSize)
+    const centerX = (page.getWidth() / 2) - (textWidth / 2);
+    page.drawText(
+        text,
+        {
+            x: centerX,
+            //x: 20,
             y: 610,
             size: fontSize,
             font: helveticaBoldFont,
