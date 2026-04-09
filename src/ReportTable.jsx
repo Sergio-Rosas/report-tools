@@ -51,8 +51,17 @@ export default function ReportTable({
     }
 
     async function reportCreation() {
-        const tablePic = await toPng(tableDomNode.current, {width: 720, height: 1280});
-        await pdfCreation(company, new DateFormat(inspectionDate), tablePic);
+        const tablePic = await toPng(tableDomNode.current, {
+            width: 720,
+            height: 1280,
+            skipAutoScale: true,
+        });
+        await pdfCreation(
+            company,
+            new DateFormat(inspectionDate),
+            tablePic,
+            imagesData,
+        );
     }
 
     return (
@@ -70,40 +79,42 @@ export default function ReportTable({
                         </figure>
                     )),
                 )}
-            <div className="form-container" ref={tableDomNode}>
-                <img
-                    className="certification__image"
-                    style={{ opacity: imageOpacity / 100 }}
-                    src="/certification.png"
-                    alt="Certification"
-                />
-                <div
-                    className="report-title"
-                    style={{
-                        opacity: tableOpacity / 100,
-                    }}
-                >
-                    <h2>
-                        Inspección de equipos de la marca INSAFE -{" "}
-                        {`${inspDate.day()} DE ${inspDate.fullMonth()} DE ${inspDate.fullYear()}`}{" "}
-                        a la empresa {company.toUpperCase()}.{" "}
-                        <p>
-                            Válido hasta{" "}
-                            {`${inspDate.fullMonth()} DE ${Number(inspDate.fullYear()) + 1}.`}
-                        </p>
-                    </h2>
-                    <h2 className="report-title--uppercase">
-                        Esta inspección no tiene costo
-                    </h2>
-                </div>
-                <div
-                    className="report-container"
-                    style={{
-                        "inset-block-start": `${offset}px`,
-                        opacity: tableOpacity / 100,
-                    }}
-                >
-                    {children}
+            <div className="form-container--margin">
+                <div className="form-container" ref={tableDomNode}>
+                    <img
+                        className="certification__image"
+                        style={{ opacity: imageOpacity / 100 }}
+                        src="/certification.png"
+                        alt="Certification"
+                    />
+                    <div
+                        className="report-title"
+                        style={{
+                            opacity: tableOpacity / 100,
+                        }}
+                    >
+                        <h2>
+                            Inspección de equipos de la marca INSAFE -{" "}
+                            {`${inspDate.day()} DE ${inspDate.fullMonth()} DE ${inspDate.fullYear()}`}{" "}
+                            a la empresa {company.toUpperCase()}.{" "}
+                            <p>
+                                Válido hasta{" "}
+                                {`${inspDate.fullMonth()} DE ${Number(inspDate.fullYear()) + 1}.`}
+                            </p>
+                        </h2>
+                        <h2 className="report-title--uppercase">
+                            Esta inspección no tiene costo
+                        </h2>
+                    </div>
+                    <div
+                        className="report-container"
+                        style={{
+                            "inset-block-start": `${offset}px`,
+                            opacity: tableOpacity / 100,
+                        }}
+                    >
+                        {children}
+                    </div>
                 </div>
             </div>
             <div>

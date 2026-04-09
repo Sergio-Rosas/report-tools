@@ -6,6 +6,7 @@
 // TODO Better CSS to the report options (opacity, translation, etc).
 // TODO Put the required property for the images upload input.
 // TODO For PDF-lib research if text can have enhancements like shadows, etc.
+// TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
 import { useState } from "react";
 
 import Header from "./Header";

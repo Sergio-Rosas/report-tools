@@ -192,7 +192,7 @@ async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
     page.drawImage(image, coordinates);
 }
 
-    async function pdfAddingText(page, text, textDisplayInfo, centered = false) {
+async function pdfAddingText(page, text, textDisplayInfo, centered = false) {
     if (centered) {
         const lineWidth = textDisplayInfo.font.widthOfTextAtSize(
             text,
@@ -201,13 +201,10 @@ async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
         textDisplayInfo.x = page.getWidth() / 2 - lineWidth / 2;
     }
 
-    page.drawText(
-        text,
-        textDisplayInfo,
-    );
+    page.drawText(text, textDisplayInfo);
 }
 
-async function pdfCreation(companyName, inspectionDate, tablePic) {
+async function pdfCreation(companyName, inspectionDate, tablePic, pics) {
     const document = await PDFDocument.create();
     //const helveticaFont = await document.embedFont(StandardFonts.Helvetica);
     const helveticaBoldFont = await document.embedFont(
@@ -218,18 +215,15 @@ async function pdfCreation(companyName, inspectionDate, tablePic) {
     const page = document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
     //const { width, height } = page.getSize();
     const fontSize = 21;
+    const backgroundImageSpecs = {
+        x: 0,
+        y: 0,
+        width: 540,
+        height: 960,
+    };
 
     // Adding the background image.
-    await pdfNewImage(
-        document,
-        "/opening.png",
-        0,
-        {
-            x: 0,
-            y: 0,
-            width: 540,
-            height: 960,
-        })
+    await pdfNewImage(document, "/opening.png", 0, backgroundImageSpecs);
 
     // Adding text to the first page.
     const textDisplayInfo = {
@@ -261,17 +255,19 @@ async function pdfCreation(companyName, inspectionDate, tablePic) {
 
     // Adding the second page with the table information.
     document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
-    await pdfNewImage(
-        document,
-        tablePic,
-        1,
-        {
-            x: 0,
-            y: 0,
-            width: 540,
-            height: 960,
-        })
+    await pdfNewImage(document, tablePic, 1, {
+        x: 0,
+        y: 0,
+        width: 540,
+        height: 960,
+    });
 
+    // Adding the rest of the images by page.
+    pics.forEach(async (picObj, index) => {
+        document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
+        const picture = URL.createObjectURL(picObj.pictures[0]);
+        await pdfNewImage(document, picture, index + 2, backgroundImageSpecs);
+    });
 
     // Saving the PDF.
     const pdfBytes = await document.save();

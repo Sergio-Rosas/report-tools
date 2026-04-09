@@ -47,6 +47,10 @@ option:checked {
     position: relative;
 }
 
+.form-container--margin {
+    margin: 10px;
+}
+
 textarea,
 input[type="text"],
 input[type="number"],
@@ -430,7 +434,6 @@ input[type="file"].disabled::file-selector-button:active {
 .certification__image {
     inline-size: 720px;
     block-size: 1280px;
-    margin: 10px;
 }
 
 .report-container {
