@@ -5,6 +5,7 @@
 // TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
 // TODO Better CSS to the report options (opacity, translation, etc).
 // TODO Put the required property for the images upload input.
+// TODO For PDF-lib research if text can have enhancements like shadows, etc.
 import { useState } from "react";
 
 import Header from "./Header";
