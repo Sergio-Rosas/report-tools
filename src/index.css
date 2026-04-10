@@ -5,8 +5,7 @@
 }
 
 :root {
-    --primary-color: #ef4722;
-    --primary-color--light: hsl(11, 86%, 54%);
+    --primary-color: hsl(11, 86%, 54%);
     --primary-color--desaturated: hsl(11, 40%, 40%);
     --contrast-color: #225cf0;
     --page-background: #f4fde7;

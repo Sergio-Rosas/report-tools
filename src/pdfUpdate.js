@@ -184,7 +184,12 @@ async function pdfUpdate(form, type = false) {
 }
 
 async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
-    const imageUrl = await fetch(imagePath);
+    let imageUrl;
+    if (imagePath instanceof File) {
+        imageUrl = imagePath;
+    } else {
+        imageUrl = await fetch(imagePath);
+    }
     const imageBytes = await imageUrl.arrayBuffer();
     const image = await document.embedPng(imageBytes);
     const pages = document.getPages();
@@ -255,19 +260,42 @@ async function pdfCreation(companyName, inspectionDate, tablePic, pics) {
 
     // Adding the second page with the table information.
     document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
-    await pdfNewImage(document, tablePic, 1, {
-        x: 0,
-        y: 0,
-        width: 540,
-        height: 960,
-    });
+    await pdfNewImage(document, tablePic, 1, backgroundImageSpecs);
 
     // Adding the rest of the images by page.
-    pics.forEach(async (picObj, index) => {
-        document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
-        const picture = URL.createObjectURL(picObj.pictures[0]);
-        await pdfNewImage(document, picture, index + 2, backgroundImageSpecs);
-    });
+    for (let i = 0; i < pics.length; i++) {
+        for await (const picture of pics[i].pictures) {
+            document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
+            await pdfNewImage(
+                document,
+                picture,
+                document.getPageCount() - 1,
+                backgroundImageSpecs,
+            );
+            await pdfAddingText(
+                document.getPage(document.getPageCount() - 1),
+                pics[i].waterMark,
+                {
+                    x: 20,
+                    y: 20,
+                    size: fontSize,
+                    font: helveticaBoldFont,
+                    //color: rgb(0.93, 0.27, 0.13),
+                    color: rgb(1, 0, 0),
+                    maxWidth: 520,
+                },
+            );
+        }
+    }
+
+    // Last page.
+    document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
+    await pdfNewImage(
+        document,
+        "/insafe-fullpage.png",
+        document.getPageCount() - 1,
+        backgroundImageSpecs,
+    );
 
     // Saving the PDF.
     const pdfBytes = await document.save();
