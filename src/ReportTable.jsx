@@ -109,7 +109,8 @@ export default function ReportTable({
                     <div
                         className="report-container"
                         style={{
-                            "inset-block-start": `${offset}px`,
+                            //"inset-block-start": `${offset}px`,
+                            insetBlockStart: `${offset}px`,
                             opacity: tableOpacity / 100,
                         }}
                     >

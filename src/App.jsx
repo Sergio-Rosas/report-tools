@@ -2,13 +2,14 @@
 // TODO Mobile compatibility.
 // TODO Offer the option to edit and delete an entry in the report table.
 // TODO A way to update the company name.
-// TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
+// TODO Optimize components, like functions only doing one thing, etc.
 // TODO Better CSS to the report options (opacity, translation, etc).
 // TODO For PDF-lib research if text can have enhancements like shadows, etc. for text in the PDF (pictures and titles).
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
 // TODO Put failsafes if the image is not a PNG.
-// TODO Loading while generating the report.
 // TODO Limit to 4 images per line.
+// TODO Loading while generating the report.
+// TODO Make a way to create a report for more than 11 elements, with pagination and exporting each different table to PNG.
 import { useState } from "react";
 
 import Header from "./Header";

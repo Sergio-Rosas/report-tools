@@ -184,17 +184,22 @@ async function pdfUpdate(form, type = false) {
 }
 
 async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
-    let imageUrl;
-    if (imagePath instanceof File) {
-        imageUrl = imagePath;
-    } else {
-        imageUrl = await fetch(imagePath);
+    try {
+        let imageUrl;
+        if (imagePath instanceof File) {
+            imageUrl = imagePath;
+        } else {
+            imageUrl = await fetch(imagePath);
+        }
+        const imageBytes = await imageUrl.arrayBuffer();
+        const image = await document.embedPng(imageBytes);
+        const pages = document.getPages();
+        const page = pages[pageNumber];
+        page.drawImage(image, coordinates);
+    } catch (err) {
+        console.err(err);
+        console.log(`Image with the error: ${imagePath}`);
     }
-    const imageBytes = await imageUrl.arrayBuffer();
-    const image = await document.embedPng(imageBytes);
-    const pages = document.getPages();
-    const page = pages[pageNumber];
-    page.drawImage(image, coordinates);
 }
 
 async function pdfAddingText(page, text, textDisplayInfo, centered = false) {
@@ -218,13 +223,13 @@ async function pdfCreation(companyName, inspectionDate, tablePic, pics) {
 
     // Page one
     const page = document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
-    //const { width, height } = page.getSize();
+    const { width, height } = page.getSize();
     const fontSize = 21;
     const backgroundImageSpecs = {
         x: 0,
         y: 0,
-        width: 540,
-        height: 960,
+        width: width,
+        height: height,
     };
 
     // Adding the background image.
@@ -266,26 +271,38 @@ async function pdfCreation(companyName, inspectionDate, tablePic, pics) {
     for (let i = 0; i < pics.length; i++) {
         document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
         const pictures = pics[i].pictures;
+        const areMultiplePictures = pictures.length > 1;
 
-        if (pictures.length > 1) {
+        if (areMultiplePictures) {
             while (pictures.length < 4) {
-                pictures.push(await fetch("/insafe-fullpage.png"));
+                pictures.push("/insafe-fullpage.png");
             }
         }
 
-        for await (const picture of pictures) {
-            // =================================================================
-            if (pics[i].pictures.length > 1) {
-                backgroundImageSpecs.width = 270;
-                backgroundImageSpecs.height = 480;
-            }
+        for (const [picIndex, picture] of pictures.entries()) {
+            const imageSpecs = areMultiplePictures
+                ? {
+                      ...backgroundImageSpecs,
+                      width: width / 2,
+                      height: height / 2,
+                      x: picIndex % 2 === 1 ? width / 2 : 0,
+                      y: picIndex < 2 ? height / 2 : 0,
+                  }
+                : {
+                      ...backgroundImageSpecs,
+                      width,
+                      height,
+                      x: 0,
+                      y: 0,
+                  };
+
             await pdfNewImage(
                 document,
                 picture,
                 document.getPageCount() - 1,
-                backgroundImageSpecs,
+                imageSpecs,
             );
-            // =================================================================
+
             await pdfAddingText(
                 document.getPage(document.getPageCount() - 1),
                 pics[i].waterMark,
