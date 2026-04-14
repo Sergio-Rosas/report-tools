@@ -79,7 +79,6 @@ export default function Report({
                                         <td>{row.serie}</td>
                                         <td>{`${buildDate.fullMonth()}-${buildDate.fullYear()}`}</td>
                                         <td>{row.servicio}</td>
-                                        {/*Include the REQUIRED property*/}
                                         {!tableAlone && (
                                             <td className="table__image-input">
                                                 <label>
@@ -99,6 +98,7 @@ export default function Report({
                                                         onChange={
                                                             handleFilesUpload
                                                         }
+                                                        required
                                                     />
                                                 </label>
                                             </td>

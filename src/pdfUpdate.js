@@ -264,14 +264,28 @@ async function pdfCreation(companyName, inspectionDate, tablePic, pics) {
 
     // Adding the rest of the images by page.
     for (let i = 0; i < pics.length; i++) {
-        for await (const picture of pics[i].pictures) {
-            document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
+        document.addPage([540, 960]); // Size in points equivalent to 720px and 1280px respectively.
+        const pictures = pics[i].pictures;
+
+        if (pictures.length > 1) {
+            while (pictures.length < 4) {
+                pictures.push(await fetch("/insafe-fullpage.png"));
+            }
+        }
+
+        for await (const picture of pictures) {
+            // =================================================================
+            if (pics[i].pictures.length > 1) {
+                backgroundImageSpecs.width = 270;
+                backgroundImageSpecs.height = 480;
+            }
             await pdfNewImage(
                 document,
                 picture,
                 document.getPageCount() - 1,
                 backgroundImageSpecs,
             );
+            // =================================================================
             await pdfAddingText(
                 document.getPage(document.getPageCount() - 1),
                 pics[i].waterMark,

@@ -4,11 +4,11 @@
 // TODO A way to update the company name.
 // TODO Optimize components, like functions only doing one thing, the date process in a function outside components, etc.
 // TODO Better CSS to the report options (opacity, translation, etc).
-// TODO Put the required property for the images upload input.
 // TODO For PDF-lib research if text can have enhancements like shadows, etc. for text in the PDF (pictures and titles).
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
 // TODO Put failsafes if the image is not a PNG.
 // TODO Loading while generating the report.
+// TODO Limit to 4 images per line.
 import { useState } from "react";
 
 import Header from "./Header";
