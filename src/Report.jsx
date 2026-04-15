@@ -43,7 +43,11 @@ export default function Report({
     }, []);
 
     return (
-        <form onSubmit={reportSubmit} encType="multipart/form-data" style={{marginBlockEnd: "20px"}}>
+        <form
+            onSubmit={reportSubmit}
+            encType="multipart/form-data"
+            style={{ marginBlockEnd: "20px" }}
+        >
             {report.length > 0 && (
                 <div>
                     <table className={tableAlone ? "report-table" : ""}>

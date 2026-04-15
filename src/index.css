@@ -15,6 +15,7 @@ body {
     font-family: "Noto Sans", sans-serif;
     font-size: 14px;
     background-color: var(--page-background);
+    position: relative;
 }
 
 select {
@@ -75,6 +76,10 @@ input[type="date"] {
     border-color: transparent;
 }
 
+.input--size {
+    inline-size: 60px;
+}
+
 .title {
     text-align: center;
     inline-size: 800px;
@@ -124,6 +129,13 @@ header {
     display: flex;
     column-gap: 7px;
     align-items: baseline;
+}
+
+.flex-container--vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
 }
 
 .table-container {
@@ -291,6 +303,10 @@ textarea {
     transition: filter 150ms ease-in;
 }
 
+.button--small {
+    padding: 5px 10px;
+}
+
 .button--save {
     background-color: var(--primary-color);
 }
@@ -319,6 +335,16 @@ textarea {
     background-color: hsl(0, 0%, 75%);
     filter: brightness(1);
     cursor: not-allowed;
+}
+
+.button--floating {
+    position: absolute;
+    font-size: 0.9rem;
+}
+
+.company-floating-button {
+    inset-inline-end: 0;
+    inset-block-start: 35px;
 }
 
 .gap-space {
@@ -437,4 +463,42 @@ input[type="file"].disabled::file-selector-button:active {
 
 .report-container {
     position: absolute;
+}
+
+.loading {
+    inset: 0;
+    background-color: hsla(0, 100%, 0%, 0.4);
+    position: absolute;
+    z-index: 1;
+    cursor: wait;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading__loader {
+    inline-size: 40px;
+    aspect-ratio: 1;
+    animation:
+        l2-1 2s infinite linear,
+        l2-2 1s infinite steps(1) alternate;
+}
+
+@keyframes l2-1 {
+    0% {
+        transform: perspective(150px) rotateX(0deg);
+    }
+    100% {
+        transform: perspective(150px) rotateX(360deg);
+    }
+}
+
+@keyframes l2-2 {
+    0% {
+        background: var(--primary-color);
+    }
+    50% {
+        background: var(--contrast-color);
+    }
 }

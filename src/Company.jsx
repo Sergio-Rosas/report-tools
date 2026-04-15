@@ -73,6 +73,9 @@ export default function Company({ handleName, handleDate }) {
             ) : (
                 <div className="form form-container">
                     <h2 className="title title--template">{data.nombre}</h2>
+                    <button className="button button--back button--small button--floating company-floating-button">
+                        Editar
+                    </button>
                 </div>
             )}
         </div>
