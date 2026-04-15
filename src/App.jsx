@@ -6,10 +6,11 @@
 // TODO Better CSS to the report options (opacity, translation, etc).
 // TODO For PDF-lib research if text can have enhancements like shadows, etc. for text in the PDF (pictures and titles).
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
-// TODO Put failsafes if the image is not a PNG.
+// TODO Before "Generar Reporte" confirm the information (the uploaded images) is correct.
+// TODO Put failsafes if the image is not a PNG or check for both PNG and JPEG.
 // TODO Limit to 4 images per line.
 // TODO Loading while generating the report.
-// TODO Make a way to create a report for more than 11 elements, with pagination and exporting each different table to PNG.
+// TODO Make a way to create a report for more than 12 elements, with pagination and exporting each different table to PNG.
 import { useState } from "react";
 
 import Header from "./Header";
