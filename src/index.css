@@ -51,6 +51,10 @@ option:checked {
     margin: 10px;
 }
 
+.form-container--title {
+    position: relative;
+}
+
 textarea,
 input[type="text"],
 input[type="number"],
@@ -80,9 +84,17 @@ input[type="date"] {
     inline-size: 60px;
 }
 
+input[type="text"].edit {
+    font-size: 1.4rem;
+    margin-block-start: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 .title {
     text-align: center;
-    inline-size: 800px;
+    max-inline-size: 800px;
+    inline-size: fit-content;
     font-size: 1.4rem;
 }
 

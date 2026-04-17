@@ -3,6 +3,10 @@ export default function Company({ handleName, handleDate }) {
     const [name, setName] = useState("");
     const [inspectionDate, setInspectionDate] = useState("");
     const [data, setData] = useState({});
+    const [coordinates, setCoordinates] = useState({});
+    const [buttonVisibility, setButtonVisibility] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+    const [companyNameChange, setCompanyNameChange] = useState("");
     const currentData = useRef({});
 
     function handleNameChange(e) {
@@ -24,6 +28,28 @@ export default function Company({ handleName, handleDate }) {
         }));
     }
 
+    function getPosition(e) {
+        setCoordinates(e.target.getBoundingClientRect());
+        setButtonVisibility(true);
+    }
+
+    function visibilityOff() {
+        setButtonVisibility(false);
+    }
+
+    function editCompanyName() {
+        setEditMode(true);
+    }
+
+    function confirmEdit() {
+        setEditMode(false);
+        setName(companyNameChange);
+        setData((prev) => ({
+            ...prev,
+            nombre: companyNameChange,
+        }));
+    }
+
     useEffect(() => {
         currentData.current = JSON.parse(localStorage.getItem("companyData"));
         if (currentData.current) {
@@ -32,6 +58,7 @@ export default function Company({ handleName, handleDate }) {
             setData(() => ({
                 ...currentData.current,
             }));
+            setCompanyNameChange(() => currentData.current.nombre);
         }
     }, []);
 
@@ -71,11 +98,57 @@ export default function Company({ handleName, handleDate }) {
                     </div>
                 </form>
             ) : (
-                <div className="form form-container">
-                    <h2 className="title title--template">{data.nombre}</h2>
-                    <button className="button button--back button--small button--floating company-floating-button">
-                        Editar
-                    </button>
+                <div
+                    className="form form-container"
+                    onMouseLeave={visibilityOff}
+                >
+                    <div className="form-container--title">
+                        {editMode ? (
+                            <input
+                                className="edit"
+                                style={{ inlineSize: coordinates.width }}
+                                type="text"
+                                value={companyNameChange}
+                                onChange={(e) =>
+                                    setCompanyNameChange(e.target.value)
+                                }
+                                onMouseEnter={getPosition}
+                            />
+                        ) : (
+                            <h2
+                                className="title title--template"
+                                onMouseEnter={getPosition}
+                            >
+                                {data.nombre}
+                            </h2>
+                        )}
+                        {editMode ? (
+                            <button
+                                className={`button button--save button--small button--floating`}
+                                style={{
+                                    insetInlineStart: coordinates.width + 10,
+                                    insetBlockStart: coordinates.height / 2,
+                                }}
+                                onClick={confirmEdit}
+                            >
+                                Aceptar
+                            </button>
+                        ) : (
+                            buttonVisibility && (
+                                <button
+                                    className={`button button--back button--small button--floating`}
+                                    style={{
+                                        insetInlineStart:
+                                            coordinates.width + 10,
+                                        insetBlockStart: coordinates.height / 2,
+                                    }}
+                                    onClick={editCompanyName}
+                                >
+                                    Editar
+                                </button>
+                            )
+                        )}
+                    </div>
                 </div>
             )}
         </div>
