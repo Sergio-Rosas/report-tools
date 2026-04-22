@@ -9,6 +9,7 @@ export default function Report({
     handleView,
 }) {
     const [report, setReport] = useState([]);
+    const [selectedRow, setSelectedRow] = useState("");
 
     function uploadAlert() {
         const confirmed = confirm(
@@ -37,6 +38,21 @@ export default function Report({
         });
     }
 
+    function deleteRow(rowId) {
+        const deletion = confirm(
+            "¿Está seguro de eliminar la fila seleccionada?",
+        );
+        if (deletion) {
+            const newReport = report.filter((row) => row.id !== rowId);
+            setReport(newReport);
+            const companyData = JSON.parse(localStorage.getItem("companyData"));
+            localStorage.setItem(
+                "companyData",
+                JSON.stringify({ ...companyData, productos: newReport }),
+            );
+        }
+    }
+
     useEffect(() => {
         const companyData = JSON.parse(localStorage.getItem("companyData"));
         setReport(companyData.productos);
@@ -54,6 +70,7 @@ export default function Report({
                         {!tableAlone && <caption>Productos Evaluados:</caption>}
                         <thead>
                             <tr>
+                                {!tableAlone && <th>Estado</th>}
                                 <th>Referencia</th>
                                 <th>Lote</th>
                                 <th>Serial</th>
@@ -78,6 +95,30 @@ export default function Report({
                                         }
                                         key={row.id}
                                     >
+                                        {!tableAlone && (
+                                            <td
+                                                style={{
+                                                    cursor: uploadEnabled
+                                                        ? "not-allowed"
+                                                        : "pointer",
+                                                }}
+                                                onClick={() =>
+                                                    !uploadEnabled &&
+                                                    deleteRow(row.id)
+                                                }
+                                                onMouseEnter={() =>
+                                                    setSelectedRow(row.id)
+                                                }
+                                                onMouseLeave={() =>
+                                                    setSelectedRow("")
+                                                }
+                                            >
+                                                {selectedRow === row.id &&
+                                                !uploadEnabled
+                                                    ? "❌"
+                                                    : "✅"}
+                                            </td>
+                                        )}
                                         <td>{row.referencia}</td>
                                         <td>{row.lote}</td>
                                         <td>{row.serie}</td>

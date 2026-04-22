@@ -103,6 +103,10 @@ input[type="text"].edit {
     text-transform: uppercase;
 }
 
+.title--clickable {
+    cursor: pointer;
+}
+
 header {
     text-transform: uppercase;
     background-color: var(--primary-color);

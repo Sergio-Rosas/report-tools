@@ -116,7 +116,7 @@ export default function Company({ handleName, handleDate }) {
                             />
                         ) : (
                             <h2
-                                className="title title--template"
+                                className="title title--template title--clickable"
                                 onMouseEnter={getPosition}
                             >
                                 {data.nombre}

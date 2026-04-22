@@ -10,6 +10,7 @@
 // TODO Put failsafes if the image is not a PNG or check for both PNG and JPEG.
 // TODO Limit to 4 images per line.
 // TODO Make a way to create a report for more than 12 elements, with pagination and exporting each different table to PNG.
+// TODO The app is not preventing refreshing.
 // TODO When the report is downloaded, reset to the start, move the information to a new storage and clean the current one.
 import { useState } from "react";
 
