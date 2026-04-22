@@ -192,7 +192,10 @@ async function pdfNewImage(document, imagePath, pageNumber, coordinates) {
             imageUrl = await fetch(imagePath);
         }
         const imageBytes = await imageUrl.arrayBuffer();
-        const image = await document.embedPng(imageBytes);
+        const image =
+            imageUrl.type === "basic" || imageUrl.type === "image/png"
+                ? await document.embedPng(imageBytes)
+                : await document.embedJpg(imageBytes);
         const pages = document.getPages();
         const page = pages[pageNumber];
         page.drawImage(image, coordinates);

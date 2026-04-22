@@ -1,14 +1,9 @@
 // npm run dev
 // TODO Mobile compatibility.
 // TODO Better CSS to the report options (opacity, translation, etc).
-// TODO Offer the option to edit and delete an entry in the report table.
-// TODO A way to update the company name.
 // TODO Optimize components, like functions only doing one thing, etc.
 // TODO For PDF-lib research if text can have enhancements like shadows, etc. for text in the PDF (pictures and titles).
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
-// TODO Before "Generar Reporte" confirm the information (the uploaded images) is correct.
-// TODO Put failsafes if the image is not a PNG or check for both PNG and JPEG.
-// TODO Limit to 4 images per line.
 // TODO Make a way to create a report for more than 12 elements, with pagination and exporting each different table to PNG.
 // TODO The app is not preventing refreshing.
 // TODO When the report is downloaded, reset to the start, move the information to a new storage and clean the current one.

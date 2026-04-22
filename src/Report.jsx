@@ -22,10 +22,42 @@ export default function Report({
 
     function reportSubmit(e) {
         e.preventDefault();
-        handleView(true);
+        const confirmation = confirm(
+            "Continuará a generación en PDF del reporte y no podrá volver para añadir más fotografías, ¿está seguro de querer continuar?",
+        );
+        confirmation && handleView(true);
     }
 
     function handleFilesUpload(e) {
+        const allowedTypes = ["image/png", "image/jpeg"];
+
+        if (e.target.files.length > 4) {
+            e.preventDefault();
+            e.target.value = "";
+            alert("¡Solo se pueden subir 4 imágenes por producto!");
+            return;
+        }
+
+        if (e.target.files.length > 1) {
+            for (const file of e.target.files) {
+                if (!allowedTypes.includes(file.type)) {
+                    e.target.value = "";
+                    alert(
+                        "Solamente se pueden subir imágenes de tipo PNG o JPG/JPEG.",
+                    );
+                    return;
+                }
+            }
+        } else {
+            if (!allowedTypes.includes(e.target.files[0].type)) {
+                e.target.value = "";
+                alert(
+                    "Solamente se pueden subir imágenes de tipo PNG o JPG/JPEG.",
+                );
+                return;
+            }
+        }
+
         handleImages((prev) => {
             const uncleanedArray = [
                 ...prev,
