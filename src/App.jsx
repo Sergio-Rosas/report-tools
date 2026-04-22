@@ -5,7 +5,6 @@
 // TODO For PDF-lib research if text can have enhancements like shadows, etc. for text in the PDF (pictures and titles).
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
 // TODO Make a way to create a report for more than 12 elements, with pagination and exporting each different table to PNG.
-// TODO The app is not preventing refreshing.
 // TODO When the report is downloaded, reset to the start, move the information to a new storage and clean the current one.
 import { useState } from "react";
 

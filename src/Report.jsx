@@ -87,6 +87,11 @@ export default function Report({
 
     useEffect(() => {
         const companyData = JSON.parse(localStorage.getItem("companyData"));
+        /* Delete after pagination is created.
+        if (companyData.productos.length > 11) {
+            setUploadEnabled(!uploadEnable);
+        }
+         */
         setReport(companyData.productos);
     }, []);
 

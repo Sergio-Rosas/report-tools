@@ -67,14 +67,6 @@ export default function MainForm({
         confirmation && handleTemplate(false);
     }
 
-    function preventRefresh(e) {
-        e.preventDefault();
-    }
-
-    useEffect(() => {
-        window.addEventListener("beforeunload", preventRefresh);
-    }, []);
-
     useEffect(() => {
         const currentData = JSON.parse(localStorage.getItem("companyData"));
 

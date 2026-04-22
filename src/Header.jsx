@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+
 export default function Header() {
+    function preventRefresh(e) {
+        e.preventDefault();
+    }
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", preventRefresh);
+    }, []);
+
     return (
         <header>
             <h1 className="title">
