@@ -69,6 +69,7 @@ function App() {
                     imagesData={imagesData}
                     inspectionDate={inspDate}
                     company={companyName}
+                    changeVisibility={setReportView}
                 >
                     <Report tableAlone={true} />
                 </ReportTable>

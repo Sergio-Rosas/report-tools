@@ -9,6 +9,7 @@ export default function ReportTable({
     children,
     imagesData,
     inspectionDate,
+    changeVisibility,
     company,
 }) {
     const inspDate = new DateFormat(inspectionDate);
@@ -72,7 +73,28 @@ export default function ReportTable({
             imagesData,
         );
 
+        await finishSession();
+
         setLoading(false);
+    }
+
+    async function finishSession() {
+        const currentData = await JSON.parse(
+            localStorage.getItem("companyData"),
+        );
+
+        localStorage.setItem("prevCompanyData", JSON.stringify(currentData));
+
+        localStorage.setItem(
+            "companyData",
+            JSON.stringify({
+                nombre: "",
+                "fecha-inspeccion": "",
+                productos: [],
+            }),
+        );
+
+        changeVisibility(false);
     }
 
     return (
