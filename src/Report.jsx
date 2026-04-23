@@ -86,13 +86,19 @@ export default function Report({
     }
 
     useEffect(() => {
-        const companyData = JSON.parse(localStorage.getItem("companyData"));
-        /* Delete after pagination is created.
-        if (companyData.productos.length > 11) {
-            setUploadEnabled(!uploadEnable);
+        try {
+            const companyData = JSON.parse(localStorage.getItem("companyData"));
+            setReport(companyData.productos);
+            /* Delete after pagination is created.
+             */
+            if (companyData.productos.length > 11) {
+                setUploadEnabled(!uploadEnabled);
+            }
+            /*
+             */
+        } catch (err) {
+            console.log(err);
         }
-         */
-        setReport(companyData.productos);
     }, []);
 
     return (
