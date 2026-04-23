@@ -44,6 +44,7 @@ export default function Company({ handleName, handleDate }) {
     function confirmEdit() {
         setEditMode(false);
         setName(companyNameChange);
+        handleName(companyNameChange);
         setData((prev) => ({
             ...prev,
             nombre: companyNameChange,

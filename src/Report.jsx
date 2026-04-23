@@ -92,6 +92,7 @@ export default function Report({
             /* Delete after pagination is created.
              */
             if (companyData.productos.length > 11) {
+                console.log("Enter");
                 setUploadEnabled(!uploadEnabled);
             }
             /*

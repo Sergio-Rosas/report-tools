@@ -331,6 +331,25 @@ textarea {
     background-color: var(--contrast-color);
 }
 
+.button--disabled:hover,
+.button--disabled:active,
+.button--disabled {
+    background-color: hsl(0, 0%, 75%);
+    filter: brightness(1);
+    cursor: not-allowed;
+}
+
+.button--floating {
+    position: absolute;
+    font-size: 0.9rem;
+}
+
+.button--floating--restore {
+    cursor: pointer;
+    z-index: 1;
+    margin: 10px;
+}
+
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -343,19 +362,6 @@ textarea {
 
 .button:active {
     filter: brightness(1.2);
-}
-
-.button--disabled:hover,
-.button--disabled:active,
-.button--disabled {
-    background-color: hsl(0, 0%, 75%);
-    filter: brightness(1);
-    cursor: not-allowed;
-}
-
-.button--floating {
-    position: absolute;
-    font-size: 0.9rem;
 }
 
 .company-floating-button {

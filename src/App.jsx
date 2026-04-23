@@ -5,7 +5,7 @@
 // TODO For PDF-lib research if text can have enhancements like shadows, etc. for text in the PDF (pictures and titles).
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
 // TODO Make a way to create a report for more than 12 elements, with pagination and exporting each different table to PNG.
-// TODO When the report is downloaded, reset to the start, move the information to a new storage and clean the current one.
+// TODO Change all the logic to feed all the data with the localStorage information.
 import { useState } from "react";
 
 import Header from "./Header";
@@ -14,6 +14,7 @@ import Templates from "./Templates";
 import Company from "./Company";
 import Report from "./Report";
 import ReportTable from "./ReportTable";
+import RestoreReport from "./RestoreReport";
 
 function App() {
     const [templateSelected, setTemplateSelected] = useState("");
@@ -26,6 +27,7 @@ function App() {
     return (
         <>
             <Header />
+            {!templateSelected && !reportView && <RestoreReport />}
             {!reportView && (
                 <div>
                     {!templateSelected && (
