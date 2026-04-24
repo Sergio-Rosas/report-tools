@@ -27,7 +27,7 @@ function App() {
     return (
         <>
             <Header />
-            {!templateSelected && !reportView && <RestoreReport />}
+            {/*!templateSelected && !reportView && <RestoreReport />*/}
             {!reportView && (
                 <div>
                     {!templateSelected && (
