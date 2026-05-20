@@ -144,6 +144,7 @@ async function pdfUpdate(form, type = false) {
         pdfForm.getCheckBox("untitled171").check();
     }
     pdfForm.getTextField("untitled185").setText(form.informe);
+    pdfForm.getTextField("untitled188").setText("RPQ255929");
 
     if (type) {
         //pdfForm.flatten({ updateFieldAppearances: true });
