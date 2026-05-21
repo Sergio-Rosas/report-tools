@@ -6,6 +6,7 @@
 // TODO The PNG generate by html-to-png library is not accurate due to the grid spaces.
 // TODO Make a way to create a report for more than 12 elements, with pagination and exporting each different table to PNG.
 // TODO Change all the logic to feed all the data with the localStorage information.
+// TODO Change the Loading component so it occupies the screen, not the document.
 import { useState } from "react";
 
 import Header from "./Header";

@@ -138,7 +138,7 @@ async function pdfUpdate(form, type = false) {
                 .setText(form[`observaciones ${i + 1}.${j}`].toUpperCase());
         }
     }
-    if (form.servicio === "continua") {
+    if (form.servicio === "continúa") {
         pdfForm.getCheckBox("untitled170").check();
     } else {
         pdfForm.getCheckBox("untitled171").check();

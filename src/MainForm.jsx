@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { pdfUpdate } from "./pdfUpdate";
 
 import Table from "./Table";
+import Loading from "./Loading.jsx";
 
 import dataArr from "./data";
 import { removeDuplicates, DateFormat } from "./supportFunctions";
@@ -17,6 +18,7 @@ export default function MainForm({
     const { conditions, name, reference, conclusions, distributor } =
         data.at(0);
     const [reportData, setReportData] = useState({});
+    const [loading, setLoading] = useState(false);
     const statusType = useRef(false);
 
     function statusPass(e) {
@@ -50,10 +52,12 @@ export default function MainForm({
     }
 
     async function save(e) {
+        setLoading(() => true);
         e.preventDefault();
         const formData = new FormData(e.target);
         setReportData(reportCreation(formData));
         await pdfUpdate(Object.fromEntries(formData), statusType.current);
+        setLoading(() => false);
     }
 
     function handleFocus(e) {
@@ -270,11 +274,11 @@ export default function MainForm({
                             className="radio-square"
                             type="radio"
                             value="no continúa"
-                            id="no continue"
+                            id="no continua"
                             name="servicio"
                             required
                         />
-                        <label htmlFor="retirar">Retirar de servicio</label>
+                        <label htmlFor="no continua">Retirar de servicio</label>
                     </div>
                 </div>
 
@@ -313,6 +317,7 @@ export default function MainForm({
                     </div>
                 </div>
             </form>
+            {loading && <Loading/>}
         </>
     );
 }
